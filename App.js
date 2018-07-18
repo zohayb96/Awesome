@@ -8,7 +8,10 @@ import Challenges from './components/Challenges';
 import Feed from './components/Feed';
 import AddChallenge from './components/AddChallenge';
 import UserProfile from './components/UserProfile';
+import SignUp from './components/SignUp';
+import Login from './components/Login';
 import { createStackNavigator } from 'react-navigation';
+import ImagePicker from './components/ImagePicker';
 
 const RootNavigator = createStackNavigator(
   {
@@ -47,6 +50,24 @@ const RootNavigator = createStackNavigator(
       screen: UserProfile,
       navigationOptions: ({ navigation }) => ({
         title: `Profile`,
+      }),
+    },
+    SignUp: {
+      screen: SignUp,
+      navigationOptions: ({ navigation }) => ({
+        title: `SignUp`,
+      }),
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: ({ navigation }) => ({
+        title: `Login`,
+      }),
+    },
+    ImagePicker: {
+      screen: ImagePicker,
+      navigationOptions: ({ navigation }) => ({
+        title: `ImagePicker`,
       }),
     },
   },

@@ -14,10 +14,16 @@ const Home = ({ navigation }) => (
     {/* <AlbumList /> */}
     <Text style={styles.textStyle}>Welcome :)</Text>
     <TouchableOpacity
-      style={styles.buttonStyle}
+      style={styles.loginButtonStyle}
       onPress={() => navigation.navigate(`AllUsers`)}
     >
       <Text>Login</Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.signUpButtonStyle}
+      onPress={() => navigation.navigate(`SignUp`)}
+    >
+      <Text>Sign Up</Text>
     </TouchableOpacity>
   </View>
 );
@@ -34,7 +40,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     justifyContent: 'flex-start',
   },
-  buttonStyle: {
+  loginButtonStyle: {
+    // alignSelf: 'stretch',
+    backgroundColor: '#009a9a',
+    borderRadius: 5,
+    borderWidth: 1,
+    marginLeft: 5,
+    marginRight: 5,
+    width: 200,
+    height: 50,
+    alignItems: `center`,
+    justifyContent: `center`,
+  },
+  signUpButtonStyle: {
     // alignSelf: 'stretch',
     backgroundColor: '#009a9a',
     borderRadius: 5,

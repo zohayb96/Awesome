@@ -20,6 +20,7 @@ const FeedDetail = ({ challenge }) => {
     imageStyle,
     buttonStyle,
     buttonContainer,
+    textStyle,
   } = styles;
 
   return (
@@ -37,8 +38,13 @@ const FeedDetail = ({ challenge }) => {
         <Image style={imageStyle} source={{ uri: picture }} />
       </CardSection>
       <CardSection>
-        <TouchableOpacity>
-          <Text style={buttonStyle}>Add to challenges</Text>
+        <TouchableOpacity style={buttonStyle}>
+          <Text
+            style={textStyle}
+            onPress={() => console.log('Accepted: ', { challengeText })}
+          >
+            Add to Challenges
+          </Text>
         </TouchableOpacity>
       </CardSection>
     </Card>
@@ -69,10 +75,21 @@ const styles = {
     flex: 1,
     width: null,
   },
+  textStyle: {
+    alignSelf: 'center',
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
   buttonStyle: {
     height: 30,
     flex: 1,
     width: null,
+    alignSelf: 'stretch',
+    borderRadius: 5,
+    backgroundColor: '#009a9a',
   },
 };
 

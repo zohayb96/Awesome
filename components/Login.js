@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import axios from 'axios';
 import FeedDetail from './FeedDetail';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './Home';
 import AllUsers from './AllUsers';
-import InputForm from './InputForm';
-import ImagePicker from './ImagePicker';
-import Button from './Button';
 
-class AddChallenge extends Component {
+class Login extends Component {
   state = {
     challenges: [],
   };
@@ -18,11 +15,7 @@ class AddChallenge extends Component {
   render() {
     console.log(this.state);
 
-    return (
-      <View>
-        <InputForm />
-      </View>
-    );
+    return <View />;
   }
 }
 
@@ -32,11 +25,6 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     justifyContent: `center`,
   },
-  imageStyle: {
-    height: 200,
-    flex: 1,
-    width: null,
-  },
 });
 
-export default AddChallenge;
+export default Login;

@@ -1,16 +1,15 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  Linking,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, Image, Linking, TouchableOpacity } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
+import Button from './Button';
+import SliderComponent from './Slider';
+import RatingForm from './RatingForm';
+// import Slider from 'react-native-slider';
 
 const ChallengeDetail = ({ challenge }) => {
+  // class ChallengeDetail extends Component {
+
   const { challengeText, issuedFrom, picture } = challenge;
   const {
     thumbnailStyle,
@@ -33,14 +32,16 @@ const ChallengeDetail = ({ challenge }) => {
           <Text>{issuedFrom.firstName + ' ' + issuedFrom.lastName}</Text>
         </View>
       </CardSection>
+      <CardSection>
+        <RatingForm />
+      </CardSection>
       {/* <CardSection>
         <Image style={imageStyle} source={{ uri: picture }} />
       </CardSection> */}
-      <CardSection>
-        <TouchableOpacity>
+      {/* <TouchableOpacity>
           <Text style={buttonStyle}>Complete Challenge</Text>
-        </TouchableOpacity>
-      </CardSection>
+        </TouchableOpacity> */}
+      {/* <SliderComponent /> */}
     </Card>
   );
 };

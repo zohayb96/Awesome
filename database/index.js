@@ -8,10 +8,11 @@ const db = require('./database');
 // Challenge.belongsTo(Users);
 
 Challenge.belongsTo(Users, { as: 'issuedFrom' });
-Challenge.belongsToMany(Users, {
-  through: 'challengeAccepted',
-  as: 'issuedTo',
-});
+Challenge.belongsTo(Users, { as: 'issuedTo' });
+// Challenge.belongsToMany(Users, {
+//   through: 'challengeAccepted',
+//   as: 'issuedTo',
+// });
 
 module.exports = {
   db,
