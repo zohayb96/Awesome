@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Home from './Home';
 import AllUsers from './AllUsers';
 
-class AddChallenge extends Component {
+class UserProfile extends Component {
   state = {
     challenges: [],
   };
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddChallenge;
+export default UserProfile;

@@ -8,6 +8,7 @@ import Home from './Home';
 import Challenges from './Challenges';
 import Feed from './Feed';
 import AddChallenge from './AddChallenge';
+import UserProfile from './UserProfile';
 
 class AllUsers extends Component {
   state = { users: [] };
@@ -39,9 +40,10 @@ class AllUsers extends Component {
 export default createBottomTabNavigator(
   {
     Friends: { screen: AllUsers },
-    AddChallenge: { screen: AddChallenge },
+    Add: { screen: AddChallenge },
     Feed: { screen: Feed },
     Challenges: { screen: Challenges },
+    Profile: { screen: UserProfile },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -54,8 +56,10 @@ export default createBottomTabNavigator(
           iconName = `ios-home${focused ? '' : '-outline'}`;
         } else if (routeName === 'Challenges') {
           iconName = `ios-options${focused ? '' : '-outline'}`;
-        } else if (routeName === 'AddChallenge') {
+        } else if (routeName === 'Add') {
           iconName = `ios-add-circle${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Profile') {
+          iconName = `ios-contact${focused ? '' : '-outline'}`;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },

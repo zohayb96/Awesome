@@ -4,7 +4,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 
 const AlbumDetail = ({ user }) => {
-  const { username, email, picture, image, url } = user;
+  const { firstName, lastName, username, email, picture, image, url } = user;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -20,14 +20,14 @@ const AlbumDetail = ({ user }) => {
           <Image style={thumbnailStyle} source={{ uri: picture }} />
         </View>
         <View style={headerContentStyle}>
-          <Text style={headerTextStyle}>{username}</Text>
-          <Text>{email}</Text>
+          <Text style={headerTextStyle}>{firstName + ' ' + lastName}</Text>
+          <Text>{username}</Text>
         </View>
       </CardSection>
       {/* <CardSection>
         <Image style={imageStyle} source={{ uri: picture }} />
       </CardSection> */}
-      <CardSection />
+      {/* <CardSection /> */}
     </Card>
   );
 };

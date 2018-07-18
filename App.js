@@ -7,21 +7,22 @@ import Home from './components/Home';
 import Challenges from './components/Challenges';
 import Feed from './components/Feed';
 import AddChallenge from './components/AddChallenge';
+import UserProfile from './components/UserProfile';
 import { createStackNavigator } from 'react-navigation';
 
 const RootNavigator = createStackNavigator(
   {
     Main: {
       screen: Home,
-      navigationOptions: { header: null },
       navigationOptions: ({ navigation }) => ({
+        header: null,
         title: `Home`,
       }),
     },
     AllUsers: {
       screen: AllUsers,
       navigationOptions: ({ navigation }) => ({
-        title: `My App`,
+        title: `ChallengeMe`,
       }),
     },
     Challenges: {
@@ -40,6 +41,12 @@ const RootNavigator = createStackNavigator(
       screen: AddChallenge,
       navigationOptions: ({ navigation }) => ({
         title: `Add`,
+      }),
+    },
+    UserProfile: {
+      screen: UserProfile,
+      navigationOptions: ({ navigation }) => ({
+        title: `Profile`,
       }),
     },
   },

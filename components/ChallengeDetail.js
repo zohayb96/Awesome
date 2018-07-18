@@ -30,7 +30,7 @@ const ChallengeDetail = ({ challenge }) => {
         </View>
         <View style={headerContentStyle}>
           <Text style={headerTextStyle}>{challengeText}</Text>
-          <Text>{issuedFrom.firstName}</Text>
+          <Text>{issuedFrom.firstName + ' ' + issuedFrom.lastName}</Text>
         </View>
       </CardSection>
       {/* <CardSection>
