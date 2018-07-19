@@ -8,11 +8,15 @@ import Home from './Home';
 import AllUsers from './AllUsers';
 
 class Feed extends Component {
-  state = { challenges: [] };
+  constructor() {
+    super();
+    this.state = { challenges: [] };
+    this.deleteChallenge = this.deleteChallenge.bind(this);
+  }
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.5.238:8080/api/challenges'
+      'http://172.16.21.129:8080/api/challenges'
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({
@@ -21,9 +25,32 @@ class Feed extends Component {
     console.log(this.state);
   }
 
+  async deleteChallenge(challengeId) {
+    try {
+      console.log('before: ', this.state);
+      await axios.delete(
+        `http://172.16.21.129:8080/api/challenges/${challengeId}`
+      );
+      const result = await axios.get(
+        'http://172.16.21.129:8080/api/challenges'
+      );
+      this.setState({
+        challenges: result.data,
+      });
+      console.log('after: ', this.state);
+      console.log('result: ', result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   renderAlbums() {
     return this.state.challenges.map(challenge => (
-      <FeedDetail key={challenge.id} challenge={challenge} />
+      <FeedDetail
+        key={challenge.id}
+        challenge={challenge}
+        deleteChallenge={this.deleteChallenge}
+      />
     ));
   }
 

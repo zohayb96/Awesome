@@ -15,7 +15,7 @@ class AllUsers extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.5.238:8080/api/users'
+      'http://172.16.21.129:8080/api/users'
       // 10.2.5.238
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );

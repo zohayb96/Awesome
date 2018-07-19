@@ -12,7 +12,7 @@ class Challenges extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.5.238:8080/api/challenges'
+      'http://172.16.21.129:8080/api/challenges'
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({

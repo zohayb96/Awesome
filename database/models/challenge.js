@@ -6,9 +6,11 @@ const db = require('../database');
 module.exports = db.define('challenge', {
   challengeText: {
     type: STRING,
+    allowNull: false
   },
   challengePicture: {
     type: TEXT,
+    allowNull: false
   },
   accepted: {
     type: BOOLEAN,

@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, Image, Linking, TouchableOpacity } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
 import AlternateButton from './AlternateButton';
+import axios from 'axios';
 
-const FeedDetail = ({ challenge }) => {
-  const { challengeText, issuedFrom, challengePicture } = challenge;
+const FeedDetail = props => {
+  // class FeedDetail extends Component {
+  //   constructor() {
+  //     super();
+  //     state = {
+  //       challenges: [],
+  //     };
+  //   }
+
+  //   async componentDidMount() {
+  //     const res = await axios.get('http://172.16.21.129:8080/api/challenges/');
+  //     this.setState({ challenges: res.data });
+  //   }
+
+  // render() {
+  const { challengeText, issuedFrom, challengePicture, id } = props.challenge;
+  console.log(props);
+
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -17,6 +34,8 @@ const FeedDetail = ({ challenge }) => {
     buttonContainer,
     textStyle,
   } = styles;
+
+  // const challenge = this.props.challenge;
 
   return (
     <Card>
@@ -34,11 +53,14 @@ const FeedDetail = ({ challenge }) => {
       </CardSection>
       <CardSection>
         <Button>Accept</Button>
-        <AlternateButton>Reject</AlternateButton>
+        <AlternateButton onPress={() => props.deleteChallenge(id)}>
+          Reject
+        </AlternateButton>
       </CardSection>
     </Card>
   );
 };
+// }
 
 const styles = {
   headerContentStyle: {

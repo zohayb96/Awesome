@@ -9,6 +9,7 @@ import {
   AppRegistry,
   ImagePickerIOS,
   Alert,
+  Keyboard,
 } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
@@ -34,36 +35,49 @@ class InputForm extends Component {
 
   async handleSubmit(evt) {
     try {
-      // for (id in this.state.AllUserIds) {
+      // for (id in this.state.AllUserIds) { // send to all users
       const res = await axios.post(
-        'http://10.2.5.238:8080/api/challenges',
+        'http://172.16.21.129:8080/api/challenges',
         this.state
       );
-      if (!res === null) {
-        console.log(res.data);
-        Alert.alert(
-          'Alert Title',
-          'My Alert Msg',
-          [
-            {
-              text: 'Ask me later',
-              onPress: () => console.log('Ask me later pressed'),
-            },
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
-          ],
-          { cancelable: false }
-        );
+      if (res !== null) {
+        this.showAlert();
+        Keyboard.dismiss();
+      } else {
+        this.showFailAlert();
       }
-      // }
     } catch (err) {
       console.log(err);
     }
   }
+
+  showAlert = () => {
+    Alert.alert(
+      'Challenge Posted!',
+      'Awesome!',
+      [
+        {
+          text: ':)',
+          onPress: () => console.log('Challenge Posted'),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  showFailAlert = () => {
+    Alert.alert(
+      'Challenge Not Posted!',
+      'Error!',
+      [
+        {
+          text: 'Please Try Again',
+          onPress: () => console.log('Challenge Error'),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
