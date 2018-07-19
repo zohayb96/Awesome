@@ -6,63 +6,90 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  AppRegistry,
+  ImagePickerIOS,
 } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
-import ImagePicker from './ImagePicker';
+import { ImagePicker, Permissions } from 'expo';
+import axios from 'axios';
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      imageUrl: '',
+      challengeText: '',
+      challengePicture: null,
+      users: [],
     };
-    // this.handleChange = this.handleChange.bind(this);
   }
 
-  // handleChange(evt) {
-  //   this.setState({ [evt.target.name]: evt.target.value });
-  //   console.log(this.state);
-  // }
+  async componentWillMount() {
+    Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const response = await axios.get(
+      'http://localhost:8080/api/users'
+      // 'https://rallycoding.herokuapp.com/api/music_albums'
+    );
+    this.setState({
+      users: response.data,
+    });
+  }
 
   render() {
+    let { challengePicture } = this.state;
     return (
       <Card>
         <CardSection>
           <TextInput
-            name="text"
-            id="text"
-            value={this.state.text}
-            onChangeText={text => this.setState({ text })}
+            name="challengeText"
+            value={this.state.challengeText}
+            onChangeText={challengeText => this.setState({ challengeText })}
             placeholder="Challenge Text"
             style={styles.textStyle}
           />
         </CardSection>
-        <CardSection style={styles.container}>
-          <Image
-            style={styles.imageStyle}
-            source={{
-              uri: 'https://www.daysoutwithkids.com/images/addphoto.png',
-            }}
-          />
+        <CardSection>
+          <View
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          >
+            {challengePicture && (
+              <Image
+                source={{ uri: challengePicture }}
+                style={{
+                  height: 250,
+                  width: 250,
+                }}
+              />
+            )}
+          </View>
+        </CardSection>
+        <CardSection>
+          <Button style={styles.buttonStyle} onPress={this.pickImage}>
+            Image
+          </Button>
         </CardSection>
         <CardSection>
           <Button>Add Challenge</Button>
         </CardSection>
-        <CardSection>
-          <ImagePicker />
-        </CardSection>
       </Card>
     );
   }
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+    if (!result.cancelled) {
+      this.setState({ challengePicture: result.uri });
+    }
+    console.log(this.state);
+  };
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    // alignItems: `center`,
-    // justifyContent: `center`,
     color: 'red',
   },
   textStyle: {
@@ -74,8 +101,16 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: 200,
     flex: 1,
-    width: null,
+    width: 200,
   },
-});
+  buttonStyle: {
+    height: 30,
+    flex: 1,
+    width: null,
+    alignSelf: 'stretch',
+    borderRadius: 5,
+    backgroundColor: '#009a9a',
+  },
+};
 
 export default InputForm;
