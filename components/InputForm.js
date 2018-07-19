@@ -12,6 +12,7 @@ import {
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
+import AlternateButton from './AlternateButton';
 import { ImagePicker, Permissions } from 'expo';
 import axios from 'axios';
 
@@ -22,15 +23,28 @@ class InputForm extends Component {
       challengeText: '',
       challengePicture: null,
       users: [],
+      issuedFromId: 1,
+      issuedToId: '',
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async handleSubmit(evt) {
+    try {
+      console.log('state: ', this.state);
+      const res = await axios.post(
+        'http://localhost:8080/api/challenges',
+        this.state
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get(
-      'http://localhost:8080/api/users'
-      // 'https://rallycoding.herokuapp.com/api/music_albums'
-    );
+    const response = await axios.get('http://localhost:8080/api/users');
     this.setState({
       users: response.data,
     });
@@ -65,12 +79,10 @@ class InputForm extends Component {
           </View>
         </CardSection>
         <CardSection>
-          <Button style={styles.buttonStyle} onPress={this.pickImage}>
-            Image
-          </Button>
+          <AlternateButton onPress={this.pickImage}>Image</AlternateButton>
         </CardSection>
         <CardSection>
-          <Button>Add Challenge</Button>
+          <Button onPress={this.handleSubmit}>Add Challenge</Button>
         </CardSection>
       </Card>
     );
@@ -102,14 +114,6 @@ const styles = {
     height: 200,
     flex: 1,
     width: 200,
-  },
-  buttonStyle: {
-    height: 30,
-    flex: 1,
-    width: null,
-    alignSelf: 'stretch',
-    borderRadius: 5,
-    backgroundColor: '#009a9a',
   },
 };
 

@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  Linking,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, Image, Linking, TouchableOpacity } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
+import Button from './Button';
+import AlternateButton from './AlternateButton';
 
 const FeedDetail = ({ challenge }) => {
   const { challengeText, issuedFrom, challengePicture } = challenge;
@@ -38,14 +33,8 @@ const FeedDetail = ({ challenge }) => {
         <Image style={imageStyle} source={{ uri: challengePicture }} />
       </CardSection>
       <CardSection>
-        <TouchableOpacity style={buttonStyle}>
-          <Text
-            style={textStyle}
-            onPress={() => console.log('Accepted: ', { challengeText })}
-          >
-            Add to Challenges
-          </Text>
-        </TouchableOpacity>
+        <Button>Accept</Button>
+        <AlternateButton>Reject</AlternateButton>
       </CardSection>
     </Card>
   );

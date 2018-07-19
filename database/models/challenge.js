@@ -1,6 +1,6 @@
 'use strict';
 
-const { STRING, BOOLEAN, INTEGER } = require('sequelize');
+const { STRING, BOOLEAN, INTEGER, TEXT } = require('sequelize');
 const db = require('../database');
 
 module.exports = db.define('challenge', {
@@ -8,7 +8,7 @@ module.exports = db.define('challenge', {
     type: STRING,
   },
   challengePicture: {
-    type: STRING,
+    type: TEXT,
   },
   accepted: {
     type: BOOLEAN,

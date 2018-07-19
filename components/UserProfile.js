@@ -17,7 +17,7 @@ class UserProfile extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://localhost:8080/api/users/2'
+      'http://localhost:8080/api/users/3'
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     const challengeData = await axios.get(
