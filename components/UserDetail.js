@@ -60,7 +60,7 @@ const UserDetail = ({ user, challenges }) => {
         <View style={headerContentStyle}>
           <Text>Completed Challenges</Text>
           {challenges.map(challenge => (
-            <View>
+            <View key={challenge.id}>
               <Image
                 style={completedChallengeImageStyle}
                 source={{ uri: challenge.challengePicture }}

@@ -8,6 +8,7 @@ import {
   Image,
   AppRegistry,
   ImagePickerIOS,
+  Alert,
 } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
@@ -33,13 +34,32 @@ class InputForm extends Component {
 
   async handleSubmit(evt) {
     try {
-      for (id in this.state.AllUserIds) {
-        const res = await axios.post(
-          'http://localhost:8080/api/challenges',
-          this.state
-        );
+      // for (id in this.state.AllUserIds) {
+      const res = await axios.post(
+        'http://10.2.5.238:8080/api/challenges',
+        this.state
+      );
+      if (!res === null) {
         console.log(res.data);
+        Alert.alert(
+          'Alert Title',
+          'My Alert Msg',
+          [
+            {
+              text: 'Ask me later',
+              onPress: () => console.log('Ask me later pressed'),
+            },
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false }
+        );
       }
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -47,7 +67,7 @@ class InputForm extends Component {
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get('http://localhost:8080/api/users');
+    const response = await axios.get('http://10.2.5.238:8080/api/users');
     this.setState({
       users: response.data,
     });
