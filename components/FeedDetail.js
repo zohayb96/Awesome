@@ -11,7 +11,7 @@ import Card from './Card';
 import CardSection from './CardSection';
 
 const FeedDetail = ({ challenge }) => {
-  const { challengeText, issuedFrom, picture } = challenge;
+  const { challengeText, issuedFrom, challengePicture } = challenge;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -35,7 +35,7 @@ const FeedDetail = ({ challenge }) => {
         </View>
       </CardSection>
       <CardSection>
-        <Image style={imageStyle} source={{ uri: picture }} />
+        <Image style={imageStyle} source={{ uri: challengePicture }} />
       </CardSection>
       <CardSection>
         <TouchableOpacity style={buttonStyle}>

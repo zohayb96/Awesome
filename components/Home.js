@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AllUsers from './AllUsers';
 
@@ -12,7 +19,10 @@ import AllUsers from './AllUsers';
 const Home = ({ navigation }) => (
   <View style={styles.container}>
     {/* <AlbumList /> */}
-    <Text style={styles.textStyle}>Welcome :)</Text>
+    <Image
+      style={styles.thumbnailStyle}
+      source={require('./ChallengeMeLogo.png')}
+    />
     <TouchableOpacity
       style={styles.loginButtonStyle}
       onPress={() => navigation.navigate(`AllUsers`)}
@@ -25,6 +35,7 @@ const Home = ({ navigation }) => (
     >
       <Text>Sign Up</Text>
     </TouchableOpacity>
+    <Text style={styles.rightsText}>All Rights Reserved</Text>
   </View>
 );
 
@@ -40,6 +51,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     justifyContent: 'flex-start',
   },
+  rightsText: {
+    color: 'white',
+    fontSize: 10,
+    justifyContent: 'center',
+    marginTop: 10,
+  },
   loginButtonStyle: {
     // alignSelf: 'stretch',
     backgroundColor: '#009a9a',
@@ -51,6 +68,10 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: `center`,
     justifyContent: `center`,
+  },
+  thumbnailStyle: {
+    height: 300,
+    width: 300,
   },
   signUpButtonStyle: {
     // alignSelf: 'stretch',

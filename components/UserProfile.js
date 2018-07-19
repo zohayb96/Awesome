@@ -1,30 +1,47 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import axios from 'axios';
-import FeedDetail from './FeedDetail';
+import UserDetail from './UserDetail';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './Home';
-import AllUsers from './AllUsers';
+import Challenges from './Challenges';
+import Feed from './Feed';
+import AddChallenge from './AddChallenge';
 
 class UserProfile extends Component {
   state = {
+    users: [],
     challenges: [],
   };
+
+  async componentWillMount() {
+    const response = await axios.get(
+      'http://localhost:8080/api/users/2'
+      // 'https://rallycoding.herokuapp.com/api/music_albums'
+    );
+    const challengeData = await axios.get(
+      'http://localhost:8080/api/challenges/'
+      // 'https://rallycoding.herokuapp.com/api/music_albums'
+    );
+    this.setState({
+      users: response.data,
+      challenges: challengeData.data,
+    });
+    console.log(this.state);
+  }
+
+  renderAlbums() {
+    return (
+      <UserDetail user={this.state.users} challenges={this.state.challenges} />
+    );
+  }
 
   render() {
     console.log(this.state);
 
-    return <View />;
+    return <ScrollView>{this.renderAlbums()}</ScrollView>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: `center`,
-    justifyContent: `center`,
-  },
-});
 
 export default UserProfile;

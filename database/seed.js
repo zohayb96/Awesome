@@ -38,19 +38,19 @@ newUsers = [
 newChallenges = [
   {
     challengeText: 'Go Skydiving',
-    picture:
+    challengePicture:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf2qwUV3gL71did5ydYf4hIifEx0_2g0ZvqlIFY8ptQXyP9SiaTA',
     issuedFromId: 1,
   },
   {
     challengeText: 'Solve Theory of Relativity',
-    picture:
+    challengePicture:
       'https://img.purch.com/w/660/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzAyMS84NTMvb3JpZ2luYWwvZ3Jhdml0eS1wcm9iZS1iLmpwZw==',
     issuedFromId: 2,
   },
   {
     challengeText: 'Ice Bucket Challenge',
-    picture:
+    challengePicture:
       'https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/07/ice-bucket-challenge-1940x1091.jpg',
     issuedFromId: 4,
   },

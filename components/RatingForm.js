@@ -16,6 +16,7 @@ class RatingForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rating: '',
       text: '',
       imageUrl: '',
     };
@@ -37,6 +38,14 @@ class RatingForm extends Component {
               id="text"
               value={this.state.text}
               onChangeText={text => this.setState({ text })}
+              placeholder="Add Review"
+              style={styles.textStyle}
+            />
+            <TextInput
+              name="rating"
+              id="rating"
+              value={this.state.rating}
+              onChangeText={rating => this.setState({ rating })}
               placeholder="Add Rating 0-100"
               style={styles.textStyle}
             />
@@ -53,7 +62,8 @@ const styles = StyleSheet.create({
     height: 30,
     width: '100%',
     flex: 2,
-    fontSize: 18,
+    fontSize: 15,
+    paddingTop: 5,
   },
   container: {
     width: '100%',

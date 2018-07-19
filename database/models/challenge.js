@@ -7,7 +7,7 @@ module.exports = db.define('challenge', {
   challengeText: {
     type: STRING,
   },
-  picture: {
+  challengePicture: {
     type: STRING,
   },
   accepted: {

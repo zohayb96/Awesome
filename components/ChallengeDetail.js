@@ -10,7 +10,7 @@ import RatingForm from './RatingForm';
 const ChallengeDetail = ({ challenge }) => {
   // class ChallengeDetail extends Component {
 
-  const { challengeText, issuedFrom, picture } = challenge;
+  const { challengeText, issuedFrom, challengePicture } = challenge;
   const {
     thumbnailStyle,
     headerContentStyle,
