@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import axios from 'axios';
 import UserDetail from './UserDetail';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
@@ -17,11 +17,11 @@ class UserProfile extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://172.16.21.129:8080/api/users/1'
+      'http://10.2.0.130:8080/api/users/1'
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     const challengeData = await axios.get(
-      'http://172.16.21.129:8080/api/challenges/'
+      'http://10.2.0.130:8080/api/challenges/'
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({
@@ -40,7 +40,7 @@ class UserProfile extends Component {
   render() {
     console.log(this.state);
 
-    return <ScrollView>{this.renderAlbums()}</ScrollView>;
+    return <View>{this.renderAlbums()}</View>;
   }
 }
 

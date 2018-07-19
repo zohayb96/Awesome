@@ -20,6 +20,7 @@ const UserDetail = ({ user, challenges }) => {
     headerTextStyle,
     imageStyle,
     completedChallengeImageStyle,
+    challengesContainer,
   } = styles;
 
   return (
@@ -40,42 +41,40 @@ const UserDetail = ({ user, challenges }) => {
         borderColor={'#009a9a'}
         borderWidth={2}
       />
-      <CardSection>
-        <View style={headerContentStyle}>
+      {/* <Text style={headerTextStyle}>Created Challenges</Text> */}
+      <ScrollView>
+        {challenges.map(challenge => (
           <CardSection>
-            <Text style={styles.headerTextStyle}>Created Challenges</Text>
-          </CardSection>
-          {challenges.map(challenge => (
-            <CardSection key={challenge.id}>
-              <View>
+            <CardSection>
+              <View key={challenge.id}>
                 <Image
                   style={completedChallengeImageStyle}
                   source={{ uri: challenge.challengePicture }}
                 />
+              </View>
+              <View>
                 <Text>{challenge.challengeText}</Text>
               </View>
             </CardSection>
-          ))}
-        </View>
-      </CardSection>
+          </CardSection>
+        ))}
+      </ScrollView>
+      {/* </CardSection>
       <CardSection>
-        <View style={headerContentStyle}>
+        <ScrollView>
           <CardSection>
             <Text style={headerTextStyle}>Completed Challenges</Text>
           </CardSection>
           {challenges.map(challenge => (
-            <CardSection key={challenge.id}>
-              <View>
-                <Image
-                  style={completedChallengeImageStyle}
-                  source={{ uri: challenge.challengePicture }}
-                />
-                <Text>{challenge.challengeText}</Text>
-              </View>
-            </CardSection>
+            <View style={headerContentStyle} key={challenge.id}>
+              <Image
+                style={completedChallengeImageStyle}
+                source={{ uri: challenge.challengePicture }}
+              />
+              <Text>{challenge.challengeText}</Text>
+            </View>
           ))}
-        </View>
-      </CardSection>
+        </ScrollView>*/}
     </Card>
   );
 };
@@ -112,6 +111,12 @@ const styles = {
     height: 300,
     flex: 1,
     width: null,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  challengesContainer: {
+    flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },

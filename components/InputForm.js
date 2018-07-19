@@ -19,6 +19,15 @@ import AlternateButton from './AlternateButton';
 import { ImagePicker, Permissions } from 'expo';
 import axios from 'axios';
 
+const defaultState = {
+  challengeText: '',
+  challengePicture: null,
+  users: [],
+  issuedFromId: 1,
+  issuedToId: 2,
+  AllUserIds: [],
+};
+
 class InputForm extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +46,10 @@ class InputForm extends Component {
     try {
       // for (id in this.state.AllUserIds) { // send to all users
       const res = await axios.post(
-        'http://172.16.21.129:8080/api/challenges',
+        'http://10.2.0.130:8080/api/challenges',
         this.state
       );
+      this.setState(defaultState);
       if (res !== null) {
         this.showAlert();
         Keyboard.dismiss();
@@ -81,7 +91,7 @@ class InputForm extends Component {
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get('http://10.2.5.238:8080/api/users');
+    const response = await axios.get('http://10.2.0.130:8080/api/users');
     this.setState({
       users: response.data,
     });

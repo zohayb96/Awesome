@@ -21,13 +21,7 @@ class RatingForm extends Component {
       text: '',
       imageUrl: '',
     };
-    // this.handleChange = this.handleChange.bind(this);
   }
-
-  // handleChange(evt) {
-  //   this.setState({ [evt.target.name]: evt.target.value });
-  //   console.log(this.state);
-  // }
 
   render() {
     return (
