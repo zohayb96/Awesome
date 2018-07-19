@@ -12,6 +12,7 @@ import {
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
+import FriendsButton from './FriendsButton';
 import AlternateButton from './AlternateButton';
 import { ImagePicker, Permissions } from 'expo';
 import axios from 'axios';
@@ -24,19 +25,21 @@ class InputForm extends Component {
       challengePicture: null,
       users: [],
       issuedFromId: 1,
-      issuedToId: '',
+      issuedToId: 2,
+      AllUserIds: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async handleSubmit(evt) {
     try {
-      console.log('state: ', this.state);
-      const res = await axios.post(
-        'http://localhost:8080/api/challenges',
-        this.state
-      );
-      console.log(res.data);
+      for (id in this.state.AllUserIds) {
+        const res = await axios.post(
+          'http://localhost:8080/api/challenges',
+          this.state
+        );
+        console.log(res.data);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -47,6 +50,9 @@ class InputForm extends Component {
     const response = await axios.get('http://localhost:8080/api/users');
     this.setState({
       users: response.data,
+    });
+    this.state.users.map(user => {
+      this.setState({ AllUserIds: this.state.AllUserIds.concat(user.id) });
     });
   }
 
@@ -84,6 +90,19 @@ class InputForm extends Component {
         <CardSection>
           <Button onPress={this.handleSubmit}>Add Challenge</Button>
         </CardSection>
+
+        {/* Freidns List Component */}
+        {/* <Card>
+          <Text style={(color = 'blue')}>Send To:</Text>
+          {this.state.users.map(user => {
+            return (
+              <CardSection key={user.id}>
+                <FriendsButton>{user.username}</FriendsButton>
+              </CardSection>
+            );
+          })}
+          <FriendsButton>All</FriendsButton>
+        </Card> */}
       </Card>
     );
   }

@@ -14,7 +14,6 @@ class AddChallenge extends Component {
   state = {
     challenges: [],
   };
-
   render() {
     console.log(this.state);
 
