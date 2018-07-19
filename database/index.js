@@ -9,6 +9,7 @@ const db = require('./database');
 
 Challenge.belongsTo(Users, { as: 'issuedFrom' });
 Challenge.belongsTo(Users, { as: 'issuedTo' });
+Users.belongsToMany(Users, { as: 'friends', through: 'friendship' });
 // Challenge.belongsToMany(Users, {
 //   through: 'challengeAccepted',
 //   as: 'issuedTo',

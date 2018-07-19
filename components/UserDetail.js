@@ -43,30 +43,36 @@ const UserDetail = ({ user, challenges }) => {
       <CardSection>
         <View style={headerContentStyle}>
           <CardSection>
-            <Text>Created Challenges</Text>
+            <Text style={styles.headerTextStyle}>Created Challenges</Text>
           </CardSection>
           {challenges.map(challenge => (
-            <View key={challenge.id}>
-              <Image
-                style={completedChallengeImageStyle}
-                source={{ uri: challenge.challengePicture }}
-              />
-              <Text>{challenge.challengeText}</Text>
-            </View>
+            <CardSection key={challenge.id}>
+              <View>
+                <Image
+                  style={completedChallengeImageStyle}
+                  source={{ uri: challenge.challengePicture }}
+                />
+                <Text>{challenge.challengeText}</Text>
+              </View>
+            </CardSection>
           ))}
         </View>
       </CardSection>
       <CardSection>
         <View style={headerContentStyle}>
-          <Text>Completed Challenges</Text>
+          <CardSection>
+            <Text style={headerTextStyle}>Completed Challenges</Text>
+          </CardSection>
           {challenges.map(challenge => (
-            <View key={challenge.id}>
-              <Image
-                style={completedChallengeImageStyle}
-                source={{ uri: challenge.challengePicture }}
-              />
-              <Text>{challenge.challengeText}</Text>
-            </View>
+            <CardSection key={challenge.id}>
+              <View>
+                <Image
+                  style={completedChallengeImageStyle}
+                  source={{ uri: challenge.challengePicture }}
+                />
+                <Text>{challenge.challengeText}</Text>
+              </View>
+            </CardSection>
           ))}
         </View>
       </CardSection>
