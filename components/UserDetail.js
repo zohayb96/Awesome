@@ -21,11 +21,12 @@ const UserDetail = ({ user, challenges }) => {
     imageStyle,
     completedChallengeImageStyle,
     challengesContainer,
+    sceneContainer,
   } = styles;
 
   return (
     <Card>
-      <CardSection>
+      <CardSection style={sceneContainer}>
         <View style={thumbnailContainerStyle}>
           <Image style={thumbnailStyle} source={{ uri: picture }} />
           <CardSection>
@@ -33,20 +34,20 @@ const UserDetail = ({ user, challenges }) => {
           </CardSection>
         </View>
       </CardSection>
-      <SegmentedControlIOS
-        values={['Created', 'Completed']}
+      {/* <SegmentedControlIOS
+        values={['Created', 'Pending', 'Completed']}
         selectedIndex={0}
         tintColor={'#009a9a'}
         backgroundColor={'#FFFFFF'}
         borderColor={'#009a9a'}
         borderWidth={2}
-      />
+      /> */}
       {/* <Text style={headerTextStyle}>Created Challenges</Text> */}
-      <ScrollView>
-        {challenges.map(challenge => (
-          <CardSection>
-            <CardSection>
-              <View key={challenge.id}>
+      <CardSection>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          {challenges.map(challenge => (
+            <CardSection key={challenge.id} style={{ flex: 1 }}>
+              <View>
                 <Image
                   style={completedChallengeImageStyle}
                   source={{ uri: challenge.challengePicture }}
@@ -56,9 +57,9 @@ const UserDetail = ({ user, challenges }) => {
                 <Text>{challenge.challengeText}</Text>
               </View>
             </CardSection>
-          </CardSection>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      </CardSection>
       {/* </CardSection>
       <CardSection>
         <ScrollView>
@@ -86,6 +87,10 @@ const styles = {
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
+  },
+  sceneContainer: {
+    // flex: 2,
+    // marginTop: 60,
   },
   headerTextStyle: {
     fontSize: 18,

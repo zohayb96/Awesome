@@ -15,6 +15,7 @@ class Feed extends Component {
       loggedInUserId: 1,
     };
     this.deleteChallenge = this.deleteChallenge.bind(this);
+    this.acceptChallenge = this.acceptChallenge.bind(this);
   }
 
   async componentWillMount() {
@@ -22,8 +23,8 @@ class Feed extends Component {
       `http://10.2.0.130:8080/api/challenges/issuedTo/${
         this.state.loggedInUserId
       }`
-      // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
+    // 'https://rallycoding.herokuapp.com/api/music_albums'
     this.setState({
       challenges: response.data,
     });
@@ -32,11 +33,32 @@ class Feed extends Component {
 
   async deleteChallenge(challengeId) {
     try {
-      console.log('before: ', this.state);
       await axios.delete(
         `http://10.2.0.130:8080/api/challenges/${challengeId}`
       );
-      const result = await axios.get('http://10.2.0.130:8080/api/challenges');
+      const result = await axios.get(
+        `http://10.2.0.130:8080/api/challenges/issuedTo/${
+          this.state.loggedInUserId
+        }`
+      );
+      this.setState({
+        challenges: result.data,
+      });
+    } catch (error) {
+      console(error);
+    }
+  }
+
+  async acceptChallenge(challengeId) {
+    try {
+      await axios.put(`http://10.2.0.130:8080/api/challenges/${challengeId}`, {
+        accepted: true,
+      });
+      const result = await axios.get(
+        `http://10.2.0.130:8080/api/challenges/issuedTo/${
+          this.state.loggedInUserId
+        }`
+      );
       this.setState({
         challenges: result.data,
       });
@@ -53,6 +75,7 @@ class Feed extends Component {
         key={challenge.id}
         challenge={challenge}
         deleteChallenge={this.deleteChallenge}
+        acceptChallenge={this.acceptChallenge}
       />
     ));
   }

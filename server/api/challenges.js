@@ -28,6 +28,22 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/accepted/:id', async (req, res, next) => {
+  const issuerToId = req.params.id;
+  try {
+    const allChallenges = await Challenge.findAll({
+      include: [{ model: Users, as: 'issuedFrom' }],
+      where: {
+        issuedToId: issuerToId,
+        accepted: true,
+      },
+    });
+    res.json(allChallenges);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // filter by loggedInUser
 router.get('/issuedTo/:id', async (req, res, next) => {
   const issuerToId = req.params.id;
@@ -36,6 +52,7 @@ router.get('/issuedTo/:id', async (req, res, next) => {
       include: [{ model: Users, as: 'issuedFrom' }],
       where: {
         issuedToId: issuerToId,
+        accepted: false,
       },
     });
     res.json(allChallenges);
@@ -50,6 +67,7 @@ router.get('/issuedFrom/:id', async (req, res, next) => {
     const allChallenges = await Challenge.findAll({
       include: [{ model: Users, as: 'issuedFrom' }],
       where: {
+        // accepted: true,
         issuedFromId: issuerId,
       },
     });
@@ -67,6 +85,21 @@ router.delete('/:id', async (req, res, next) => {
       },
     });
     res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const acceptedChallenge = await Challenge.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(req.body);
+    acceptedChallenge.update(req.body);
+    res.json(acceptedChallenge);
   } catch (error) {
     next(error);
   }

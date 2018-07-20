@@ -52,7 +52,7 @@ const FeedDetail = props => {
         <Image style={imageStyle} source={{ uri: challengePicture }} />
       </CardSection>
       <CardSection>
-        <Button>Accept</Button>
+        <Button onPress={() => props.acceptChallenge(id)}>Accept</Button>
         <AlternateButton onPress={() => props.deleteChallenge(id)}>
           Reject
         </AlternateButton>

@@ -47,6 +47,7 @@ class InputForm extends Component {
   async handleSubmit(evt) {
     try {
       // for (id in this.state.AllUserIds) { // send to all users
+      let count = 0;
       let ppl = this.state.AllUserIds;
       for (id in ppl) {
         let idx = ppl[id];
@@ -56,9 +57,10 @@ class InputForm extends Component {
           issuedFromId: this.state.loggedInUserId,
           issuedToId: idx,
         });
+        count++;
       }
       this.setState(defaultState);
-      if (res !== null) {
+      if (count > 0) {
         this.showAlert();
         Keyboard.dismiss();
       } else {
