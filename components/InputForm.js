@@ -51,7 +51,7 @@ class InputForm extends Component {
       let ppl = this.state.AllUserIds;
       for (id in ppl) {
         let idx = ppl[id];
-        const res = await axios.post('http://10.2.0.130:8080/api/challenges', {
+        const res = await axios.post('http://localhost:8080/api/challenges', {
           challengeText: this.state.challengeText,
           challengePicture: this.state.challengePicture,
           issuedFromId: this.state.loggedInUserId,
@@ -101,7 +101,7 @@ class InputForm extends Component {
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get('http://10.2.0.130:8080/api/users');
+    const response = await axios.get('http://localhost:8080/api/users');
     this.setState({
       users: response.data,
     });
@@ -113,11 +113,14 @@ class InputForm extends Component {
         // ),
       });
     });
-    this.setState({
-      AllUserIds: this.state.AllUserIds.filter(
-        userId => userId !== this.state.loggedInUserId
-      ),
-    });
+
+    // Filters to create to all users except self
+    // this.setState({
+    //   AllUserIds: this.state.AllUserIds.filter(
+    //     userId => userId !== this.state.loggedInUserId
+    //   ),
+    // });
+
     // const allOtherUsers = this.state.AllUserIds.filter(userId => {
     //   userId !== this.state.loggedInUserId;
     // });

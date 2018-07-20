@@ -20,7 +20,7 @@ class Feed extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://10.2.0.130:8080/api/challenges/issuedTo/${
+      `http://localhost:8080/api/challenges/issuedTo/${
         this.state.loggedInUserId
       }`
     );
@@ -33,11 +33,9 @@ class Feed extends Component {
 
   async deleteChallenge(challengeId) {
     try {
-      await axios.delete(
-        `http://10.2.0.130:8080/api/challenges/${challengeId}`
-      );
+      await axios.delete(`http://localhost:8080/api/challenges/${challengeId}`);
       const result = await axios.get(
-        `http://10.2.0.130:8080/api/challenges/issuedTo/${
+        `http://localhost:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
@@ -51,11 +49,11 @@ class Feed extends Component {
 
   async acceptChallenge(challengeId) {
     try {
-      await axios.put(`http://10.2.0.130:8080/api/challenges/${challengeId}`, {
+      await axios.put(`http://localhost:8080/api/challenges/${challengeId}`, {
         accepted: true,
       });
       const result = await axios.get(
-        `http://10.2.0.130:8080/api/challenges/issuedTo/${
+        `http://localhost:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
@@ -69,7 +67,7 @@ class Feed extends Component {
     }
   }
 
-  renderAlbums() {
+  renderFeed() {
     return this.state.challenges.map(challenge => (
       <FeedDetail
         key={challenge.id}
@@ -83,7 +81,7 @@ class Feed extends Component {
   render() {
     console.log(this.state);
 
-    return <ScrollView>{this.renderAlbums()}</ScrollView>;
+    return <ScrollView>{this.renderFeed()}</ScrollView>;
   }
 }
 

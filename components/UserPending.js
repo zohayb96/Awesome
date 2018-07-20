@@ -10,7 +10,7 @@ import {
 import Card from './Card';
 import CardSection from './CardSection';
 
-const UserDetail = ({ user, challenges }) => {
+const UserPending = ({ user, challenges }) => {
   const { firstName, lastName, username, email, picture, image, url } = user;
   const { challengeText, issuedFrom, challengePicture, issuedTo } = challenges;
   const {
@@ -22,7 +22,6 @@ const UserDetail = ({ user, challenges }) => {
     completedChallengeImageStyle,
     challengesContainer,
     sceneContainer,
-    textStyle,
   } = styles;
 
   return (
@@ -33,6 +32,12 @@ const UserDetail = ({ user, challenges }) => {
         </View>
         <View style={headerContentStyle}>
           <Text style={headerTextStyle}>{challengeText}</Text>
+          <Text>
+            Created by: {issuedFrom.firstName + ' ' + issuedFrom.lastName}
+          </Text>
+          <Text>
+            Accepted by: {issuedTo.firstName + ' ' + issuedTo.lastName}
+          </Text>
         </View>
       </CardSection>
     </Card>
@@ -55,14 +60,6 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
   },
-  textStyle: {
-    fontSize: 12,
-    width: '100%',
-    textAlign: 'center',
-    // color: '#2d3d54',
-    // backgroundColor: '#2d3d54',
-    fontFamily: 'Helvetica Neue',
-  },
 };
 
-export default UserDetail;
+export default UserPending;

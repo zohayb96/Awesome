@@ -32,10 +32,36 @@ router.get('/accepted/:id', async (req, res, next) => {
   const issuerToId = req.params.id;
   try {
     const allChallenges = await Challenge.findAll({
-      include: [{ model: Users, as: 'issuedFrom' }],
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
       where: {
         issuedToId: issuerToId,
         accepted: true,
+        rating: null,
+      },
+    });
+    res.json(allChallenges);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/completed/:id', async (req, res, next) => {
+  const issuerToId = req.params.id;
+  try {
+    const allChallenges = await Challenge.findAll({
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
+      where: {
+        issuedToId: issuerToId,
+        accepted: true,
+        rating: {
+          $ne: null,
+        },
       },
     });
     res.json(allChallenges);
@@ -49,9 +75,15 @@ router.get('/issuedTo/:id', async (req, res, next) => {
   const issuerToId = req.params.id;
   try {
     const allChallenges = await Challenge.findAll({
-      include: [{ model: Users, as: 'issuedFrom' }],
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
       where: {
         issuedToId: issuerToId,
+        issuedFromId: {
+          $ne: issuerToId,
+        },
         accepted: false,
       },
     });
@@ -61,13 +93,37 @@ router.get('/issuedTo/:id', async (req, res, next) => {
   }
 });
 
+// Get own created challenge - Issued to yourself
+router.get('/own/:id', async (req, res, next) => {
+  const issuerId = req.params.id;
+  try {
+    const allChallenges = await Challenge.findAll({
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
+      where: {
+        issuedFromId: issuerId,
+        issuedToId: issuerId,
+      },
+    });
+    res.json(allChallenges);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ALL CHALLENGES ISSUED FROM SOMEONE THAT ARE ACCEPTED BY A FRIEND
 router.get('/issuedFrom/:id', async (req, res, next) => {
   const issuerId = req.params.id;
   try {
     const allChallenges = await Challenge.findAll({
-      include: [{ model: Users, as: 'issuedFrom' }],
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
       where: {
-        // accepted: true,
+        accepted: true,
         issuedFromId: issuerId,
       },
     });

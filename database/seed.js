@@ -41,18 +41,35 @@ newChallenges = [
     challengePicture:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf2qwUV3gL71did5ydYf4hIifEx0_2g0ZvqlIFY8ptQXyP9SiaTA',
     issuedFromId: 1,
+    issuedToId: 2,
   },
   {
     challengeText: 'Solve Theory of Relativity',
     challengePicture:
       'https://img.purch.com/w/660/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzAyMS84NTMvb3JpZ2luYWwvZ3Jhdml0eS1wcm9iZS1iLmpwZw==',
     issuedFromId: 2,
+    issuedToId: 1,
   },
   {
     challengeText: 'Ice Bucket Challenge',
     challengePicture:
       'https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/07/ice-bucket-challenge-1940x1091.jpg',
     issuedFromId: 4,
+    issuedToId: 1,
+  },
+  {
+    challengeText: 'Eat kangaroo 🥩🇦🇺',
+    challengePicture:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMtne_wL90yfQ628kFBUXLPZOxkaX10xLK6fYv1Sm1bjX8XtTXwA',
+    issuedFromId: 3,
+    issuedToId: 1,
+  },
+  {
+    challengeText: 'Climb a mountain',
+    challengePicture:
+      'http://www.nerverush.com/wp-content/uploads/2014/07/this-climber.jpg',
+    issuedFromId: 4,
+    issuedToId: 1,
   },
 ];
 

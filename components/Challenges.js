@@ -23,7 +23,7 @@ class Challenges extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://10.2.0.130:8080/api/challenges/accepted/${
+      `http://localhost:8080/api/challenges/accepted/${
         this.state.loggedInUserId
       }`
       // 'https://rallycoding.herokuapp.com/api/music_albums'
@@ -34,7 +34,7 @@ class Challenges extends Component {
     console.log(this.state);
   }
 
-  renderAlbums() {
+  renderChallenges() {
     return this.state.challenges.map(challenge => (
       <ChallengeDetail key={challenge.id} challenge={challenge} />
     ));
@@ -45,21 +45,12 @@ class Challenges extends Component {
 
     return (
       <View>
-        <SegmentedControlIOS
-          values={['Created', 'Pending', 'Completed']}
-          selectedIndex={0}
-          tintColor={'#2d3d54'}
-          // backgroundColor={'#f9f9f9'}
-          // borderColor={'#009a9a'}
-          // borderWidth={2}
-          marginTop={8}
-        />
         {this.state.challenges === [] ? (
           <CardSection>
             <Text>No Challenges To Display</Text>
           </CardSection>
         ) : (
-          <ScrollView>{this.renderAlbums()}</ScrollView>
+          <ScrollView>{this.renderChallenges()}</ScrollView>
         )}
       </View>
     );
