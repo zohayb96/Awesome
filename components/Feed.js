@@ -10,13 +10,18 @@ import AllUsers from './AllUsers';
 class Feed extends Component {
   constructor() {
     super();
-    this.state = { challenges: [] };
+    this.state = {
+      challenges: [],
+      loggedInUserId: 1,
+    };
     this.deleteChallenge = this.deleteChallenge.bind(this);
   }
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.0.130:8080/api/challenges'
+      `http://10.2.0.130:8080/api/challenges/issuedTo/${
+        this.state.loggedInUserId
+      }`
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({

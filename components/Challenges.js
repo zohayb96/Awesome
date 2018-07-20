@@ -8,11 +8,16 @@ import Home from './Home';
 import AllUsers from './AllUsers';
 
 class Challenges extends Component {
-  state = { challenges: [] };
+  state = {
+    challenges: [],
+    loggedInUserId: 1,
+  };
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.0.130:8080/api/challenges'
+      `http://10.2.0.130:8080/api/challenges/issuedTo/${
+        this.state.loggedInUserId
+      }`
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({

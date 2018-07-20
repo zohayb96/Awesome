@@ -11,11 +11,14 @@ import AddChallenge from './AddChallenge';
 import UserProfile from './UserProfile';
 
 class AllUsers extends Component {
-  state = { users: [] };
+  state = {
+    users: [],
+    loggedInUserId: 1,
+  };
 
   async componentWillMount() {
     const response = await axios.get(
-      'http://10.2.0.130:8080/api/users'
+      `http://10.2.0.130:8080/api/users/friends/${this.state.loggedInUserId}`
       // 10.2.5.238
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );

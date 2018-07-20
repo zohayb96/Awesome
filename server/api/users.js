@@ -1,7 +1,23 @@
 'use strict';
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-const { Users } = require('../../database/');
+const { Users, Challenge } = require('../../database/');
 const router = require('express').Router();
+
+router.get('/friends/:id', async (req, res, next) => {
+  const loggedInUser = req.params.id;
+  try {
+    const allFriends = await Users.findAll({
+      where: {
+        id: { [Op.notIn]: [loggedInUser] },
+      },
+    });
+    res.json(allFriends);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get('/:id', async function(req, res, next) {
   try {

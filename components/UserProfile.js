@@ -13,6 +13,7 @@ class UserProfile extends Component {
   state = {
     users: [],
     challenges: [],
+    loggedInUserId: 1,
   };
 
   async componentWillMount() {
@@ -21,7 +22,9 @@ class UserProfile extends Component {
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     const challengeData = await axios.get(
-      'http://10.2.0.130:8080/api/challenges/'
+      `http://10.2.0.130:8080/api/challenges/issuedFrom/${
+        this.state.loggedInUserId
+      }`
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({

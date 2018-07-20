@@ -38,6 +38,8 @@
     "react-native": "~0.55.2",
     "react-native-image-picker": "^0.26.10",
     "react-navigation": "^2.7.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "sequelize": "^4.38.0"
   },
   "rnpm": {

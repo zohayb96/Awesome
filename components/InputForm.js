@@ -35,20 +35,28 @@ class InputForm extends Component {
       challengeText: '',
       challengePicture: null,
       users: [],
-      issuedFromId: 1,
-      issuedToId: 2,
+      issuedFromId: '',
+      issuedToId: '',
       AllUserIds: [],
+      loggedInUserId: 1,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // POSTS TO ALL USERS Excpet Current LoggedInUser
   async handleSubmit(evt) {
     try {
       // for (id in this.state.AllUserIds) { // send to all users
-      const res = await axios.post(
-        'http://10.2.0.130:8080/api/challenges',
-        this.state
-      );
+      let ppl = this.state.AllUserIds;
+      for (id in ppl) {
+        let idx = ppl[id];
+        const res = await axios.post('http://10.2.0.130:8080/api/challenges', {
+          challengeText: this.state.challengeText,
+          challengePicture: this.state.challengePicture,
+          issuedFromId: this.state.loggedInUserId,
+          issuedToId: idx,
+        });
+      }
       this.setState(defaultState);
       if (res !== null) {
         this.showAlert();
@@ -96,8 +104,26 @@ class InputForm extends Component {
       users: response.data,
     });
     this.state.users.map(user => {
-      this.setState({ AllUserIds: this.state.AllUserIds.concat(user.id) });
+      this.setState({
+        AllUserIds: this.state.AllUserIds.concat(user.id),
+        // .filter(
+        //   user => user.id !== this.state.loggedInUserId
+        // ),
+      });
     });
+    this.setState({
+      AllUserIds: this.state.AllUserIds.filter(
+        userId => userId !== this.state.loggedInUserId
+      ),
+    });
+    // const allOtherUsers = this.state.AllUserIds.filter(userId => {
+    //   userId !== this.state.loggedInUserId;
+    // });
+    // this.setState({ AllUserIds: allOtherUsers.concat() });
+    // const allOtherUsers = AllUserIds.filter(
+    //   userId => userId !== this.state.loggedInUserId
+    // );
+    // this.setState({AllUserIds = allOtherUsers.concat()})
   }
 
   render() {
