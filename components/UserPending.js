@@ -12,7 +12,13 @@ import CardSection from './CardSection';
 
 const UserPending = ({ user, challenges }) => {
   const { firstName, lastName, username, email, picture, image, url } = user;
-  const { challengeText, issuedFrom, challengePicture, issuedTo } = challenges;
+  const {
+    challengeText,
+    issuedFrom,
+    challengePicture,
+    issuedTo,
+    rating,
+  } = challenges;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -32,12 +38,18 @@ const UserPending = ({ user, challenges }) => {
         </View>
         <View style={headerContentStyle}>
           <Text style={headerTextStyle}>{challengeText}</Text>
-          <Text>
-            Created by: {issuedFrom.firstName + ' ' + issuedFrom.lastName}
-          </Text>
-          <Text>
-            Accepted by: {issuedTo.firstName + ' ' + issuedTo.lastName}
-          </Text>
+          <Text>{issuedTo.firstName + ' ' + issuedTo.lastName}</Text>
+          {rating > 90 ? (
+            <Text>Rated: {rating} 🔥🔥🔥</Text>
+          ) : rating > 80 ? (
+            <Text>Rated: {rating} 🔥🔥</Text>
+          ) : rating > 70 ? (
+            <Text>Rated: {rating} 🔥</Text>
+          ) : rating > 50 ? (
+            <Text>Rated: {rating} 👍</Text>
+          ) : (
+            <Text>Rated: {rating} 👎</Text>
+          )}
         </View>
       </CardSection>
     </Card>

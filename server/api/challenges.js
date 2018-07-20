@@ -133,6 +133,29 @@ router.get('/issuedFrom/:id', async (req, res, next) => {
   }
 });
 
+// where accepted and rated by the friend
+router.get('/feedback/:id', async (req, res, next) => {
+  const issuerId = req.params.id;
+  try {
+    const allChallenges = await Challenge.findAll({
+      include: [
+        { model: Users, as: 'issuedFrom' },
+        { model: Users, as: 'issuedTo' },
+      ],
+      where: {
+        accepted: true,
+        issuedFromId: issuerId,
+        rating: {
+          $ne: null,
+        },
+      },
+    });
+    res.json(allChallenges);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete('/:id', async (req, res, next) => {
   try {
     const destroyedChallenge = await Challenge.destroy({

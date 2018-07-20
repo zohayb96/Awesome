@@ -25,7 +25,7 @@ class UserProfile extends Component {
     users: [],
     createdChallenges: [],
     completedChallenges: [],
-    pendingChallenges: [],
+    feedbackChallenges: [],
     loggedInUserId: 1,
     selectedIndex: 0,
   };
@@ -41,8 +41,8 @@ class UserProfile extends Component {
       }`
     );
 
-    const pendingChallengeData = await axios.get(
-      `http://localhost:8080/api/challenges/accepted/${
+    const feedbackChallengeData = await axios.get(
+      `http://localhost:8080/api/challenges/feedback/${
         this.state.loggedInUserId
       }`
     );
@@ -51,7 +51,7 @@ class UserProfile extends Component {
       users: response.data,
       createdChallenges: challengeData.data,
       completedChallenges: completedChallengeData.data,
-      pendingChallenges: pendingChallengeData.data,
+      feedbackChallenges: feedbackChallengeData.data,
     });
     console.log(this.state);
   }
@@ -77,7 +77,7 @@ class UserProfile extends Component {
   }
 
   renderPending() {
-    return this.state.pendingChallenges.map(challenge => (
+    return this.state.feedbackChallenges.map(challenge => (
       <UserPending
         key={challenge.id}
         user={this.state.users}
@@ -116,7 +116,7 @@ class UserProfile extends Component {
           </View>
         </CardSection>
         <SegmentedControlIOS
-          values={['Created', 'Completed', 'Pending']}
+          values={['Created', 'Completed', 'Feedback']}
           selectedIndex={0}
           tintColor={'#2d3d54'}
           selectedIndex={this.state.selectedIndex}
