@@ -17,6 +17,21 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// update rating
+router.put(':/id', async (req, res, next) => {
+  try {
+    const updatedChallenge = await Challenge.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    updatedChallenge.update(req.body);
+    res.json(challenge);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/', async (req, res, next) => {
   try {
     const allChallenges = await Challenge.findAll({

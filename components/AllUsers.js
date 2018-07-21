@@ -18,14 +18,13 @@ class AllUsers extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://localhost:8080/api/users/friends/${this.state.loggedInUserId}`
+      `http://192.168.1.11:8080/api/users/friends/${this.state.loggedInUserId}`
       // 10.2.5.238
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({
       users: response.data,
     });
-    console.log(this.state);
   }
 
   renderAlbums() {

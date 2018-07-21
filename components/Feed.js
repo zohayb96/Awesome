@@ -20,7 +20,7 @@ class Feed extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://localhost:8080/api/challenges/issuedTo/${
+      `http://192.168.1.11:8080/api/challenges/issuedTo/${
         this.state.loggedInUserId
       }`
     );
@@ -33,9 +33,11 @@ class Feed extends Component {
 
   async deleteChallenge(challengeId) {
     try {
-      await axios.delete(`http://localhost:8080/api/challenges/${challengeId}`);
+      await axios.delete(
+        `http://192.168.1.11:8080/api/challenges/${challengeId}`
+      );
       const result = await axios.get(
-        `http://localhost:8080/api/challenges/issuedTo/${
+        `http://192.168.1.11:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
@@ -49,11 +51,14 @@ class Feed extends Component {
 
   async acceptChallenge(challengeId) {
     try {
-      await axios.put(`http://localhost:8080/api/challenges/${challengeId}`, {
-        accepted: true,
-      });
+      await axios.put(
+        `http://192.168.1.11:8080/api/challenges/${challengeId}`,
+        {
+          accepted: true,
+        }
+      );
       const result = await axios.get(
-        `http://localhost:8080/api/challenges/issuedTo/${
+        `http://192.168.1.11:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
@@ -81,13 +86,23 @@ class Feed extends Component {
   render() {
     console.log(this.state);
 
-    return <ScrollView>{this.renderFeed()}</ScrollView>;
+    // return <ScrollView>{this.renderFeed()}</ScrollView>;
+    return (
+      <View>
+        {this.state.challenges.length === 0 ? (
+          <View style={styles.container}>
+            <Text>No Challenges To Display</Text>
+          </View>
+        ) : (
+          <ScrollView>{this.renderFeed()}</ScrollView>
+        )}
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: `center`,
     justifyContent: `center`,
   },

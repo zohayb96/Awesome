@@ -51,12 +51,15 @@ class InputForm extends Component {
       let ppl = this.state.AllUserIds;
       for (id in ppl) {
         let idx = ppl[id];
-        const res = await axios.post('http://localhost:8080/api/challenges', {
-          challengeText: this.state.challengeText,
-          challengePicture: this.state.challengePicture,
-          issuedFromId: this.state.loggedInUserId,
-          issuedToId: idx,
-        });
+        const res = await axios.post(
+          'http://192.168.1.11:8080/api/challenges',
+          {
+            challengeText: this.state.challengeText,
+            challengePicture: this.state.challengePicture,
+            issuedFromId: this.state.loggedInUserId,
+            issuedToId: idx,
+          }
+        );
         count++;
       }
       this.setState(defaultState);
@@ -101,7 +104,7 @@ class InputForm extends Component {
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get('http://localhost:8080/api/users');
+    const response = await axios.get('http://192.168.1.11:8080/api/users');
     this.setState({
       users: response.data,
     });

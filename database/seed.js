@@ -8,7 +8,8 @@ newUsers = [
     lastName: 'Shaikh',
     username: 'zohayb96',
     email: 'zs@email.com',
-    picture: 'https://avatars1.githubusercontent.com/u/7879983?s=460&v=4',
+    picture:
+      'https://instagram.fnyc1-1.fna.fbcdn.net/vp/5f39b6a5ca6d9b90927122be817e7d7b/5BD99218/t51.2885-15/sh0.08/e35/p640x640/28432578_152933198729058_7849606578062753792_n.jpg',
   },
   {
     firstName: 'Albert',

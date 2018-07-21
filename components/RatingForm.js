@@ -12,6 +12,7 @@ import CardSection from './CardSection';
 import Button from './Button';
 import AlternateButton from './AlternateButton';
 import ImagePicker from './ImagePicker';
+import axios from 'axios';
 
 class RatingForm extends Component {
   constructor(props) {
@@ -20,7 +21,27 @@ class RatingForm extends Component {
       rating: '',
       text: '',
       imageUrl: '',
+      loggedInUserId: 1,
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async handleSubmit(submitEvent) {
+    try {
+      // const res = await axios.put(
+      //   `http://192.168.1.11:8080/api/challenges/${this.props.challenge.id}`,
+      //   {
+      //     rating: this.state.rating,
+      //   }
+      // );
+      this.props.updateView(
+        this.props.challenge.id,
+        this.state.rating,
+        this.state.loggedInUserId
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -49,7 +70,7 @@ class RatingForm extends Component {
               />
             </CardSection>
             <CardSection>
-              <Button>Complete Challenge</Button>
+              <Button onPress={this.handleSubmit}>Complete Challenge</Button>
             </CardSection>
             <CardSection>
               <AlternateButton>Remove Challenge</AlternateButton>

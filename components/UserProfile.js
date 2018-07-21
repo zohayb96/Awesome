@@ -31,18 +31,18 @@ class UserProfile extends Component {
   };
 
   async componentWillMount() {
-    const response = await axios.get('http://localhost:8080/api/users/1');
+    const response = await axios.get('http://192.168.1.11:8080/api/users/1');
     const challengeData = await axios.get(
-      `http://localhost:8080/api/challenges/own/${this.state.loggedInUserId}`
+      `http://192.168.1.11:8080/api/challenges/own/${this.state.loggedInUserId}`
     );
     const completedChallengeData = await axios.get(
-      `http://localhost:8080/api/challenges/completed/${
+      `http://192.168.1.11:8080/api/challenges/completed/${
         this.state.loggedInUserId
       }`
     );
 
     const feedbackChallengeData = await axios.get(
-      `http://localhost:8080/api/challenges/feedback/${
+      `http://192.168.1.11:8080/api/challenges/feedback/${
         this.state.loggedInUserId
       }`
     );

@@ -6,6 +6,7 @@ import {
   Button,
   ScrollView,
   SegmentedControlIOS,
+  Image,
 } from 'react-native';
 import axios from 'axios';
 import ChallengeDetail from './ChallengeDetail';
@@ -16,17 +17,37 @@ import AllUsers from './AllUsers';
 import CardSection from './CardSection';
 
 class Challenges extends Component {
-  state = {
-    challenges: [],
-    loggedInUserId: 1,
-  };
+  constructor() {
+    super();
+    this.state = {
+      challenges: [],
+      loggedInUserId: 1,
+    };
+    this.updateView = this.updateView.bind(this);
+  }
+
+  async updateView(id, rating, currentUser) {
+    console.log('pages State:', this.state);
+    try {
+      await axios.put(`http://192.168.1.11:8080/api/challenges/${id}`, {
+        rating: rating,
+      });
+      const response = await axios.get(
+        `http://192.168.1.11:8080/api/challenges/accepted/${currentUser}`
+      );
+      this.setState({
+        challenges: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://localhost:8080/api/challenges/accepted/${
+      `http://192.168.1.11:8080/api/challenges/accepted/${
         this.state.loggedInUserId
       }`
-      // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
     this.setState({
       challenges: response.data,
@@ -36,7 +57,11 @@ class Challenges extends Component {
 
   renderChallenges() {
     return this.state.challenges.map(challenge => (
-      <ChallengeDetail key={challenge.id} challenge={challenge} />
+      <ChallengeDetail
+        key={challenge.id}
+        challenge={challenge}
+        updateView={this.updateView}
+      />
     ));
   }
 
@@ -45,10 +70,17 @@ class Challenges extends Component {
 
     return (
       <View>
-        {this.state.challenges === [] ? (
-          <CardSection>
-            <Text>No Challenges To Display</Text>
-          </CardSection>
+        {this.state.challenges.length === 0 ? (
+          <View style={styles.container}>
+            <Text>No Pending Challenges</Text>
+            <Image
+              style={styles.thumbnailStyle}
+              source={{
+                uri:
+                  'https://cdn4.iconfinder.com/data/icons/lion-emoticon/595/LION_EMOTICON-15-512.png',
+              }}
+            />
+          </View>
         ) : (
           <ScrollView>{this.renderChallenges()}</ScrollView>
         )}
@@ -59,9 +91,14 @@ class Challenges extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: `center`,
     justifyContent: `center`,
+    flex: 1,
+  },
+  thumbnailStyle: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
 });
 

@@ -16,7 +16,6 @@ class AddChallenge extends Component {
   };
   render() {
     console.log(this.state);
-
     return (
       <View>
         <InputForm />

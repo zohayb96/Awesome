@@ -7,10 +7,9 @@ import SliderComponent from './Slider';
 import RatingForm from './RatingForm';
 // import Slider from 'react-native-slider';
 
-const ChallengeDetail = ({ challenge }) => {
+const ChallengeDetail = props => {
   // class ChallengeDetail extends Component {
-
-  const { challengeText, issuedFrom, challengePicture } = challenge;
+  const { challengeText, issuedFrom, challengePicture } = props.challenge;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -33,7 +32,7 @@ const ChallengeDetail = ({ challenge }) => {
         </View>
       </CardSection>
       <CardSection>
-        <RatingForm />
+        <RatingForm challenge={props.challenge} updateView={props.updateView} />
       </CardSection>
       {/* <CardSection>
         <Image style={imageStyle} source={{ uri: picture }} />
