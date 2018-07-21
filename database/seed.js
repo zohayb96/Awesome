@@ -34,6 +34,22 @@ newUsers = [
     picture:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJfo1GycVoUK1jct9pSUg6kW9kF-2n5VYqFvsv1pmvIhAHWbzp',
   },
+  {
+    firstName: 'Elon',
+    lastName: 'Musk',
+    username: 'elonmusk',
+    email: 'elonMusk@email.com',
+    picture:
+      'http://www.nydailynews.com/resizer/4SgXFjv4vrfkwfW6XDMSGzkxqvI=/1400x0/www.trbimg.com/img-5b5245ac/turbine/ny-1532118440-h2xawo95j7-snap-image',
+  },
+  {
+    firstName: 'Oprah',
+    lastName: 'Winfrey',
+    username: 'yougetacar',
+    email: 'oprah@email.com',
+    picture:
+      'https://honnaimg.elwatannews.com/image_archive/840x601/5931972721516896299.jpg',
+  },
 ];
 
 newChallenges = [
@@ -70,6 +86,65 @@ newChallenges = [
     challengePicture:
       'http://www.nerverush.com/wp-content/uploads/2014/07/this-climber.jpg',
     issuedFromId: 4,
+    issuedToId: 1,
+    accepted: true,
+    rating: 88,
+  },
+  {
+    challengeText: 'Go to the beach',
+    challengePicture:
+      'https://cdn.pixabay.com/photo/2017/01/09/21/50/beach-1967766_1280.jpg',
+    issuedFromId: 4,
+    issuedToId: 1,
+    accepted: true,
+    rating: 57,
+  },
+  {
+    challengeText: 'Selfie with statue of liberty',
+    challengePicture:
+      'https://duckduckgrayduck.files.wordpress.com/2015/09/liberty.jpg',
+    issuedFromId: 6,
+    issuedToId: 1,
+    accepted: true,
+  },
+  {
+    challengeText: 'Go ice skating in France',
+    challengePicture:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVDstSYDqXNjfbOEzd7td-awpR0XQ04DkIlMGUN9R0IzzlSGU8',
+    issuedFromId: 3,
+    issuedToId: 1,
+    accepted: true,
+  },
+  {
+    challengeText: 'Find this street art in brooklyn',
+    challengePicture:
+      'https://graffitiart-libs.com/wp-content/uploads/2018/01/street-art-williamsburg-street-art-williamsburg-brooklyn-obsessed-brooklyn-street-art.jpg',
+    issuedFromId: 5,
+    issuedToId: 1,
+  },
+  {
+    challengeText: 'Find the wall street bull',
+    challengePicture:
+      'https://render.fineartamerica.com/images/rendered/default/poster/10/8/break/images-medium-5/wall-street-bull-david-smith.jpg',
+    issuedFromId: 1,
+    issuedToId: 3,
+    rating: 87,
+    accepted: true,
+  },
+  {
+    challengeText: 'Try the Artichoke Slice',
+    challengePicture:
+      'https://artichokepizza.com/wp/wp-content/uploads/2017/08/greenwich.jpg',
+    issuedFromId: 1,
+    issuedToId: 3,
+    rating: 87,
+    accepted: true,
+  },
+  {
+    challengeText: 'Try the Artichoke Slice',
+    challengePicture:
+      'https://artichokepizza.com/wp/wp-content/uploads/2017/08/greenwich.jpg',
+    issuedFromId: 1,
     issuedToId: 1,
   },
 ];

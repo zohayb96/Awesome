@@ -19,6 +19,7 @@ import AddChallenge from './AddChallenge';
 import FeedDetail from './FeedDetail';
 import Card from './Card';
 import CardSection from './CardSection';
+import Button from './Button';
 
 class UserProfile extends Component {
   state = {
@@ -112,6 +113,9 @@ class UserProfile extends Component {
               <Text style={styles.headerTextStyle}>
                 {firstName + ' ' + lastName}
               </Text>
+              <CardSection>
+                <Button>Edit</Button>
+              </CardSection>
             </CardSection>
           </View>
         </CardSection>

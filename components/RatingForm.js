@@ -24,17 +24,24 @@ class RatingForm extends Component {
       loggedInUserId: 1,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReject = this.handleReject.bind(this);
   }
 
   async handleSubmit(submitEvent) {
     try {
-      // const res = await axios.put(
-      //   `http://192.168.1.11:8080/api/challenges/${this.props.challenge.id}`,
-      //   {
-      //     rating: this.state.rating,
-      //   }
-      // );
       this.props.updateView(
+        this.props.challenge.id,
+        this.state.rating,
+        this.state.loggedInUserId
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async handleReject(submitEvent) {
+    try {
+      this.props.rejectChallenge(
         this.props.challenge.id,
         this.state.rating,
         this.state.loggedInUserId
@@ -49,7 +56,7 @@ class RatingForm extends Component {
       <Card>
         <CardSection>
           <View style={styles.container}>
-            <CardSection>
+            {/* <CardSection>
               <TextInput
                 name="text"
                 id="text"
@@ -58,7 +65,7 @@ class RatingForm extends Component {
                 placeholder="Add Review"
                 style={styles.textStyle}
               />
-            </CardSection>
+            </CardSection> */}
             <CardSection>
               <TextInput
                 name="rating"
@@ -73,7 +80,9 @@ class RatingForm extends Component {
               <Button onPress={this.handleSubmit}>Complete Challenge</Button>
             </CardSection>
             <CardSection>
-              <AlternateButton>Remove Challenge</AlternateButton>
+              <AlternateButton onPress={this.handleReject}>
+                Remove Challenge
+              </AlternateButton>
             </CardSection>
           </View>
         </CardSection>

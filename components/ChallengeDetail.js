@@ -32,7 +32,11 @@ const ChallengeDetail = props => {
         </View>
       </CardSection>
       <CardSection>
-        <RatingForm challenge={props.challenge} updateView={props.updateView} />
+        <RatingForm
+          challenge={props.challenge}
+          updateView={props.updateView}
+          rejectChallenge={props.rejectChallenge}
+        />
       </CardSection>
       {/* <CardSection>
         <Image style={imageStyle} source={{ uri: picture }} />

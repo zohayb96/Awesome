@@ -24,6 +24,7 @@ class Challenges extends Component {
       loggedInUserId: 1,
     };
     this.updateView = this.updateView.bind(this);
+    this.rejectChallenge = this.rejectChallenge.bind(this);
   }
 
   async updateView(id, rating, currentUser) {
@@ -61,8 +62,25 @@ class Challenges extends Component {
         key={challenge.id}
         challenge={challenge}
         updateView={this.updateView}
+        rejectChallenge={this.rejectChallenge}
       />
     ));
+  }
+
+  async rejectChallenge(id, rating, currentUser) {
+    try {
+      await axios.put(`http://192.168.1.11:8080/api/challenges/${id}`, {
+        accepted: false,
+      });
+      const response = await axios.get(
+        `http://192.168.1.11:8080/api/challenges/accepted/${currentUser}`
+      );
+      this.setState({
+        challenges: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -72,12 +90,12 @@ class Challenges extends Component {
       <View>
         {this.state.challenges.length === 0 ? (
           <View style={styles.container}>
-            <Text>No Pending Challenges</Text>
+            <Text style={styles.textStyle}>No Pending Challenges</Text>
             <Image
               style={styles.thumbnailStyle}
               source={{
                 uri:
-                  'https://cdn4.iconfinder.com/data/icons/lion-emoticon/595/LION_EMOTICON-15-512.png',
+                  'https://images.clipartuse.com/30fbd6e30257552d6f4c4339ff4ca06e_floresta-e-safari-3-lionpng-minus-clipart-pinterest-_1500-1500.png',
               }}
             />
           </View>
@@ -89,17 +107,25 @@ class Challenges extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    alignItems: `center`,
-    justifyContent: `center`,
-    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
   },
   thumbnailStyle: {
-    height: 50,
-    width: 50,
-    borderRadius: 25,
+    height: 200,
+    width: 200,
   },
-});
+  textStyle: {
+    fontSize: 18,
+    width: '100%',
+    textAlign: 'center',
+    // color: '#2d3d54',
+    // backgroundColor: '#2d3d54',
+    fontFamily: 'Helvetica Neue',
+  },
+};
 
 export default Challenges;
