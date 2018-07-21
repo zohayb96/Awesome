@@ -5,6 +5,8 @@ import {
   Image,
   Text,
   SegmentedControlIOS,
+  Button,
+  TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
 import UserDetail from './UserDetail';
@@ -19,7 +21,7 @@ import AddChallenge from './AddChallenge';
 import FeedDetail from './FeedDetail';
 import Card from './Card';
 import CardSection from './CardSection';
-import Button from './Button';
+import { StackNavigator } from 'react-navigation';
 
 class UserProfile extends Component {
   state = {
@@ -103,6 +105,7 @@ class UserProfile extends Component {
       challengePicture,
     } = this.state.createdChallenges;
     console.log(this.state);
+    const { navigate } = this.props.navigation;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -113,10 +116,15 @@ class UserProfile extends Component {
               <Text style={styles.headerTextStyle}>
                 {firstName + ' ' + lastName}
               </Text>
-              <CardSection>
-                <Button>Edit</Button>
-              </CardSection>
             </CardSection>
+            <View>
+              <TouchableOpacity
+                style={styles.buttonStyle}
+                onPress={() => navigation.navigate(`SignUp`)}
+              >
+                <Text style={styles.buttonTextStyle}>Edit</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </CardSection>
         <SegmentedControlIOS
@@ -198,6 +206,24 @@ const styles = {
     textAlign: 'center',
     color: '#FFFFFF',
     backgroundColor: '#2d3d54',
+    fontFamily: 'Helvetica Neue',
+  },
+  buttonStyle: {
+    height: 20,
+    width: 80,
+    alignSelf: 'stretch',
+    borderRadius: 5,
+    backgroundColor: '#009a9a',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  buttonTextStyle: {
+    fontSize: 15,
+    width: '100%',
+    textAlign: 'center',
+    color: '#FFFFFF',
     fontFamily: 'Helvetica Neue',
   },
 };

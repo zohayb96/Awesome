@@ -27,12 +27,28 @@ newUsers = [
       'https://www.gannett-cdn.com/-mm-/3f3d96c2ce4ab86b90ede4df57c8f3a8ae8f9610/c=21-0-2331-1737/local/-/media/2018/07/07/USATODAY/USATODAY/636665861475843815-2018-07-07-LeBron-James2.jpg?width=534&height=401&fit=crop',
   },
   {
+    firstName: 'Beyonce',
+    lastName: '',
+    username: 'Beyonce',
+    email: 'bey@yonce.com',
+    picture:
+      'https://pixel.nymag.com/imgs/fashion/daily/2014/01/29/29-beyonce-grammys-earings.nocrop.w710.h2147483647.jpg',
+  },
+  {
     firstName: 'Bill',
     lastName: 'Gates',
     username: 'billgates',
     email: 'bg@email.com',
     picture:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJfo1GycVoUK1jct9pSUg6kW9kF-2n5VYqFvsv1pmvIhAHWbzp',
+  },
+  {
+    firstName: 'Rihanna',
+    lastName: 'riri',
+    username: 'rihanna',
+    email: 'riri@legend.com',
+    picture:
+      'https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fcdn-img.essence.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F1x1_lg%2Fpublic%2F1510254067%2Fslack-imgs_0.jpg%3Fitok%3DaC1D-HgI&w=700&q=85',
   },
   {
     firstName: 'Elon',
@@ -49,6 +65,14 @@ newUsers = [
     email: 'oprah@email.com',
     picture:
       'https://honnaimg.elwatannews.com/image_archive/840x601/5931972721516896299.jpg',
+  },
+  {
+    firstName: 'Erum',
+    lastName: 'Nadeem',
+    username: 'erum',
+    email: 'erum@email.com',
+    picture:
+      'https://media.indiatimes.in/media/content/itimes/blog/2014/Jul/10/1404992999-10-things-you-didnt-know-about-alia-bhatt.jpg',
   },
 ];
 
