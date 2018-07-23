@@ -27,12 +27,13 @@ class Challenges extends Component {
     this.rejectChallenge = this.rejectChallenge.bind(this);
   }
 
-  async updateView(id, rating, currentUser, responseText) {
+  async updateView(id, rating, currentUser, responseText, responsePicture) {
     console.log('pages State:', this.state);
     try {
       await axios.put(`http://172.16.21.129:8080/api/challenges/${id}`, {
         rating: rating,
         responseText: responseText,
+        responsePicture: responsePicture,
       });
       const response = await axios.get(
         `http://172.16.21.129:8080/api/challenges/accepted/${currentUser}`

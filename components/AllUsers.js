@@ -56,7 +56,7 @@ export default createBottomTabNavigator(
     Feed: { screen: Feed },
     Challenges: { screen: Challenges },
     Profile: { screen: UserProfile },
-    // Edit: { screen: EditUser },
+    Settings: { screen: EditUser },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -73,7 +73,7 @@ export default createBottomTabNavigator(
           iconName = `ios-add-circle${focused ? '' : '-outline'}`;
         } else if (routeName === 'Profile') {
           iconName = `ios-contact${focused ? '' : '-outline'}`;
-        } else if (routeName === 'Edit') {
+        } else if (routeName === 'Settings') {
           iconName = `ios-settings${focused ? '' : '-outline'}`;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;

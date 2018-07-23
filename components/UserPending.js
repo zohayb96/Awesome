@@ -18,6 +18,8 @@ const UserPending = ({ user, challenges }) => {
     challengePicture,
     issuedTo,
     rating,
+    responseText,
+    responsePicture,
   } = challenges;
   const {
     thumbnailStyle,
@@ -34,11 +36,14 @@ const UserPending = ({ user, challenges }) => {
     <Card>
       <CardSection>
         <View style={thumbnailContainerStyle}>
-          <Image style={thumbnailStyle} source={{ uri: challengePicture }} />
+          <Image style={thumbnailStyle} source={{ uri: responsePicture }} />
         </View>
         <View style={headerContentStyle}>
+          <Text>
+            Completed by: {issuedTo.firstName + ' ' + issuedTo.lastName}
+          </Text>
           <Text style={headerTextStyle}>{challengeText}</Text>
-          <Text>{issuedTo.firstName + ' ' + issuedTo.lastName}</Text>
+          <Text>Comment: {responseText}</Text>
           {rating > 90 ? (
             <Text>Rated: {rating} 🔥🔥🔥</Text>
           ) : rating > 80 ? (

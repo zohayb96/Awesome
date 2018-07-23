@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ImagePickerIOS,
 } from 'react-native';
 import Card from './Card';
 import CardSection from './CardSection';
 import Button from './Button';
+import RedButton from './RedButton';
 import AlternateButton from './AlternateButton';
-import ImagePicker from './ImagePicker';
+import { ImagePicker, Permissions } from 'expo';
 import axios from 'axios';
 
 class RatingForm extends Component {
@@ -21,6 +23,7 @@ class RatingForm extends Component {
       rating: '',
       responseText: '',
       imageUrl: '',
+      responsePicture: null,
       loggedInUserId: 1,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +36,8 @@ class RatingForm extends Component {
         this.props.challenge.id,
         this.state.rating,
         this.state.loggedInUserId,
-        this.state.responseText
+        this.state.responseText,
+        this.state.responsePicture
       );
     } catch (error) {
       console.log(error);
@@ -46,7 +50,8 @@ class RatingForm extends Component {
         this.props.challenge.id,
         this.state.rating,
         this.state.loggedInUserId,
-        this.state.responseText
+        this.state.responseText,
+        this.state.responsePicture
       );
     } catch (error) {
       console.log(error);
@@ -54,6 +59,7 @@ class RatingForm extends Component {
   }
 
   render() {
+    let { responsePicture } = this.state;
     return (
       <Card>
         <CardSection>
@@ -78,19 +84,52 @@ class RatingForm extends Component {
                 style={styles.textStyle}
               />
             </CardSection>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {responsePicture && (
+                <Image
+                  source={{ uri: responsePicture }}
+                  style={{
+                    height: 250,
+                    width: 250,
+                  }}
+                />
+              )}
+            </View>
+            <CardSection>
+              <AlternateButton onPress={this.pickImage}>
+                Response Image
+              </AlternateButton>
+            </CardSection>
             <CardSection>
               <Button onPress={this.handleSubmit}>Complete Challenge</Button>
             </CardSection>
             <CardSection>
-              <AlternateButton onPress={this.handleReject}>
+              <RedButton onPress={this.handleReject}>
                 Remove Challenge
-              </AlternateButton>
+              </RedButton>
             </CardSection>
           </View>
         </CardSection>
       </Card>
     );
   }
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+    if (!result.cancelled) {
+      this.setState({ responsePicture: result.uri });
+    }
+    console.log(this.state);
+  };
 }
 
 const styles = StyleSheet.create({

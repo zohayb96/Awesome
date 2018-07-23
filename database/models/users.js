@@ -16,7 +16,7 @@ module.exports = db.define('users', {
     unique: true,
   },
   password: {
-    type: VIRTUAL,
+    type: STRING,
   },
   email: {
     type: STRING,
