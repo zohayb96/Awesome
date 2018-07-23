@@ -19,7 +19,7 @@ class RatingForm extends Component {
     super(props);
     this.state = {
       rating: '',
-      text: '',
+      responseText: '',
       imageUrl: '',
       loggedInUserId: 1,
     };
@@ -32,7 +32,8 @@ class RatingForm extends Component {
       this.props.updateView(
         this.props.challenge.id,
         this.state.rating,
-        this.state.loggedInUserId
+        this.state.loggedInUserId,
+        this.state.responseText
       );
     } catch (error) {
       console.log(error);
@@ -44,7 +45,8 @@ class RatingForm extends Component {
       this.props.rejectChallenge(
         this.props.challenge.id,
         this.state.rating,
-        this.state.loggedInUserId
+        this.state.loggedInUserId,
+        this.state.responseText
       );
     } catch (error) {
       console.log(error);
@@ -56,16 +58,16 @@ class RatingForm extends Component {
       <Card>
         <CardSection>
           <View style={styles.container}>
-            {/* <CardSection>
+            <CardSection>
               <TextInput
-                name="text"
-                id="text"
-                value={this.state.text}
-                onChangeText={text => this.setState({ text })}
+                name="responseText"
+                id="responseText"
+                value={this.state.responseText}
+                onChangeText={responseText => this.setState({ responseText })}
                 placeholder="Add Review"
                 style={styles.textStyle}
               />
-            </CardSection> */}
+            </CardSection>
             <CardSection>
               <TextInput
                 name="rating"

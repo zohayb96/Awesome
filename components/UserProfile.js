@@ -15,13 +15,14 @@ import UserPending from './UserPending';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './Home';
-import Challenges from './Challenges';
 import Feed from './Feed';
 import AddChallenge from './AddChallenge';
 import FeedDetail from './FeedDetail';
 import Card from './Card';
 import CardSection from './CardSection';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import Challenges from './Challenges';
+import EditUser from './EditUser';
 
 class UserProfile extends Component {
   state = {
@@ -33,19 +34,25 @@ class UserProfile extends Component {
     selectedIndex: 0,
   };
 
+  static navigationOptions = {
+    title: 'Profile',
+  };
+
   async componentWillMount() {
-    const response = await axios.get('http://192.168.1.11:8080/api/users/1');
+    const response = await axios.get('http://172.16.21.129:8080/api/users/1');
     const challengeData = await axios.get(
-      `http://192.168.1.11:8080/api/challenges/own/${this.state.loggedInUserId}`
+      `http://172.16.21.129:8080/api/challenges/own/${
+        this.state.loggedInUserId
+      }`
     );
     const completedChallengeData = await axios.get(
-      `http://192.168.1.11:8080/api/challenges/completed/${
+      `http://172.16.21.129:8080/api/challenges/completed/${
         this.state.loggedInUserId
       }`
     );
 
     const feedbackChallengeData = await axios.get(
-      `http://192.168.1.11:8080/api/challenges/feedback/${
+      `http://172.16.21.129:8080/api/challenges/feedback/${
         this.state.loggedInUserId
       }`
     );
@@ -90,6 +97,8 @@ class UserProfile extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     const {
       firstName,
       lastName,
@@ -99,13 +108,12 @@ class UserProfile extends Component {
       image,
       url,
     } = this.state.users;
+
     const {
       challengeText,
       issuedFrom,
       challengePicture,
     } = this.state.createdChallenges;
-    console.log(this.state);
-    const { navigate } = this.props.navigation;
 
     return (
       <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -120,7 +128,7 @@ class UserProfile extends Component {
             <View>
               <TouchableOpacity
                 style={styles.buttonStyle}
-                onPress={() => navigation.navigate(`SignUp`)}
+                onPress={() => navigate('EditUser')}
               >
                 <Text style={styles.buttonTextStyle}>Edit</Text>
               </TouchableOpacity>
@@ -214,7 +222,6 @@ const styles = {
     alignSelf: 'stretch',
     borderRadius: 5,
     backgroundColor: '#009a9a',
-    textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,

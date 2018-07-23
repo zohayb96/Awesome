@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import axios from 'axios';
 import AlbumDetail from './AlbumDetail';
-import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  TabBarBottom,
+  StackNavigator,
+} from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import Home from './Home';
 import Challenges from './Challenges';
 import Feed from './Feed';
 import AddChallenge from './AddChallenge';
 import UserProfile from './UserProfile';
+import EditUser from './EditUser';
 
 class AllUsers extends Component {
   state = {
@@ -18,7 +23,7 @@ class AllUsers extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://192.168.1.11:8080/api/users/friends/${this.state.loggedInUserId}`
+      `http://172.16.21.129:8080/api/users/friends/${this.state.loggedInUserId}`
       // 10.2.5.238
       // 'https://rallycoding.herokuapp.com/api/music_albums'
     );
@@ -40,6 +45,10 @@ class AllUsers extends Component {
   }
 }
 
+// export const rootStack = StackNavigator({
+//   IndividualUser: { screen: IndividualUser },
+// });
+
 export default createBottomTabNavigator(
   {
     Friends: { screen: AllUsers },
@@ -47,6 +56,7 @@ export default createBottomTabNavigator(
     Feed: { screen: Feed },
     Challenges: { screen: Challenges },
     Profile: { screen: UserProfile },
+    // Edit: { screen: EditUser },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -63,6 +73,8 @@ export default createBottomTabNavigator(
           iconName = `ios-add-circle${focused ? '' : '-outline'}`;
         } else if (routeName === 'Profile') {
           iconName = `ios-contact${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Edit') {
+          iconName = `ios-settings${focused ? '' : '-outline'}`;
         }
         return <Ionicons name={iconName} size={25} color={tintColor} />;
       },

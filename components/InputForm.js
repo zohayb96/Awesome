@@ -52,7 +52,7 @@ class InputForm extends Component {
       for (id in ppl) {
         let idx = ppl[id];
         const res = await axios.post(
-          'http://192.168.1.11:8080/api/challenges',
+          'http://172.16.21.129:8080/api/challenges',
           {
             challengeText: this.state.challengeText,
             challengePicture: this.state.challengePicture,

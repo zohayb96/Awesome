@@ -27,7 +27,7 @@ class Feed extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://192.168.1.11:8080/api/challenges/issuedTo/${
+      `http://172.16.21.129:8080/api/challenges/issuedTo/${
         this.state.loggedInUserId
       }`
     );
@@ -41,10 +41,10 @@ class Feed extends Component {
   async deleteChallenge(challengeId) {
     try {
       await axios.delete(
-        `http://192.168.1.11:8080/api/challenges/${challengeId}`
+        `http://172.16.21.129:8080/api/challenges/${challengeId}`
       );
       const result = await axios.get(
-        `http://192.168.1.11:8080/api/challenges/issuedTo/${
+        `http://172.16.21.129:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
@@ -59,13 +59,13 @@ class Feed extends Component {
   async acceptChallenge(challengeId) {
     try {
       await axios.put(
-        `http://192.168.1.11:8080/api/challenges/${challengeId}`,
+        `http://172.16.21.129:8080/api/challenges/${challengeId}`,
         {
           accepted: true,
         }
       );
       const result = await axios.get(
-        `http://192.168.1.11:8080/api/challenges/issuedTo/${
+        `http://172.16.21.129:8080/api/challenges/issuedTo/${
           this.state.loggedInUserId
         }`
       );
