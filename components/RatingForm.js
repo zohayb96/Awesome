@@ -132,7 +132,7 @@ class RatingForm extends Component {
   };
 }
 
-const styles = StyleSheet.create({
+const styles = {
   textStyle: {
     height: 30,
     width: '100%',
@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: null,
   },
-});
+};
 
 export default RatingForm;

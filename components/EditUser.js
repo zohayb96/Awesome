@@ -7,11 +7,13 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ImagePickerIOS,
 } from 'react-native';
 import axios from 'axios';
 import FeedDetail from './FeedDetail';
 import { createBottomTabNavigator, TabBarBottom } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import { ImagePicker, Permissions } from 'expo';
 import Home from './Home';
 import Button from './Button';
 import FriendsButton from './FriendsButton';
@@ -33,6 +35,30 @@ class EditUser extends Component {
       picture: '',
       password: '',
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async handleSubmit(submitEvent) {
+    try {
+      await axios.put(
+        `http://172.16.21.129:8080/api/users/${this.state.loggedInUserId}`,
+        {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          username: this.state.username,
+          email: this.state.email,
+          picture: this.state.picture,
+          password: this.state.password,
+        }
+      );
+      // get user info
+      const response = await axios.get(
+        `http://172.16.21.129:8080/api/users/${this.state.loggedInUserId}`
+      );
+      this.setState({ user: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async componentWillMount() {
@@ -53,13 +79,13 @@ class EditUser extends Component {
   }
 
   render() {
+    let { picture } = this.state;
     console.log(this.state);
     const {
       firstName,
       lastName,
       username,
       email,
-      picture,
       image,
       url,
     } = this.state.user;
@@ -77,7 +103,7 @@ class EditUser extends Component {
             <View>
               <TouchableOpacity
                 style={styles.buttonStyle}
-                // onPress={() => navigate('EditUser')}
+                onPress={this.pickImage}
               >
                 <Text style={styles.buttonTextStyle}>Edit Pic</Text>
               </TouchableOpacity>
@@ -128,13 +154,24 @@ class EditUser extends Component {
               />
             </CardSection>
             <CardSection>
-              <Button>Done</Button>
+              <Button onPress={this.handleSubmit}>Done</Button>
             </CardSection>
           </View>
         </CardSection>
       </View>
     );
   }
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+    if (!result.cancelled) {
+      this.setState({ picture: result.uri });
+    }
+    console.log(this.state);
+  };
 }
 
 const styles = {

@@ -44,4 +44,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.put('/:id', async function(req, res, next) {
+  try {
+    const user = await Users.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    user.update(req.body);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
