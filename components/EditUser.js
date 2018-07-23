@@ -122,6 +122,7 @@ class EditUser extends Component {
                 name="password"
                 value={this.state.password}
                 onChangeText={password => this.setState({ password })}
+                secureTextEntry={true}
                 placeholder="Password"
                 style={styles.textStyle}
               />

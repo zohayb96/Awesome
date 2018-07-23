@@ -1,6 +1,6 @@
 'use strict';
 
-const { STRING, ARRAY, INTEGER, BOOLEAN, VIRTUAL } = require('sequelize');
+const { STRING, ARRAY, INTEGER, TEXT, BOOLEAN, VIRTUAL } = require('sequelize');
 const db = require('../database');
 
 module.exports = db.define('users', {
@@ -26,6 +26,6 @@ module.exports = db.define('users', {
     },
   },
   picture: {
-    type: STRING,
+    type: TEXT,
   },
 });
