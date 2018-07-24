@@ -26,7 +26,6 @@ class SignUp extends Component {
     super();
     this.state = {
       challenges: [],
-      loggedInUserId: 1,
       user: {},
       firstName: '',
       lastName: '',
@@ -37,6 +36,7 @@ class SignUp extends Component {
     };
   }
   render() {
+    let { picture } = this.state;
     console.log(this.state);
 
     return (
@@ -110,13 +110,24 @@ class SignUp extends Component {
               />
             </CardSection>
             <CardSection>
-              <Button onPress={this.handleSubmit}>Done</Button>
+              <Button onPress={this.handleSubmit}>Sign Up</Button>
             </CardSection>
           </View>
         </CardSection>
       </View>
     );
   }
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+    if (!result.cancelled) {
+      this.setState({ picture: result.uri });
+    }
+    console.log(this.state);
+  };
 }
 
 const styles = {

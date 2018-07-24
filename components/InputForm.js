@@ -51,15 +51,12 @@ class InputForm extends Component {
       let ppl = this.state.AllUserIds;
       for (id in ppl) {
         let idx = ppl[id];
-        const res = await axios.post(
-          'http://172.16.21.129:8080/api/challenges',
-          {
-            challengeText: this.state.challengeText,
-            challengePicture: this.state.challengePicture,
-            issuedFromId: this.state.loggedInUserId,
-            issuedToId: idx,
-          }
-        );
+        const res = await axios.post('http://localhost:8080/api/challenges', {
+          challengeText: this.state.challengeText,
+          challengePicture: this.state.challengePicture,
+          issuedFromId: this.state.loggedInUserId,
+          issuedToId: idx,
+        });
         count++;
       }
       this.setState(defaultState);

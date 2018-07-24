@@ -16,7 +16,7 @@ const FeedDetail = props => {
   //   }
 
   //   async componentDidMount() {
-  //     const res = await axios.get('http://172.16.21.129:8080/api/challenges/');
+  //     const res = await axios.get('http://localhost:8080/api/challenges/');
   //     this.setState({ challenges: res.data });
   //   }
 

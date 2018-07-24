@@ -30,13 +30,13 @@ class Challenges extends Component {
   async updateView(id, rating, currentUser, responseText, responsePicture) {
     console.log('pages State:', this.state);
     try {
-      await axios.put(`http://172.16.21.129:8080/api/challenges/${id}`, {
+      await axios.put(`http://localhost:8080/api/challenges/${id}`, {
         rating: rating,
         responseText: responseText,
         responsePicture: responsePicture,
       });
       const response = await axios.get(
-        `http://172.16.21.129:8080/api/challenges/accepted/${currentUser}`
+        `http://localhost:8080/api/challenges/accepted/${currentUser}`
       );
       this.setState({
         challenges: response.data,
@@ -48,7 +48,7 @@ class Challenges extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://172.16.21.129:8080/api/challenges/accepted/${
+      `http://localhost:8080/api/challenges/accepted/${
         this.state.loggedInUserId
       }`
     );
@@ -71,11 +71,11 @@ class Challenges extends Component {
 
   async rejectChallenge(id, rating, currentUser) {
     try {
-      await axios.put(`http://172.16.21.129:8080/api/challenges/${id}`, {
+      await axios.put(`http://localhost:8080/api/challenges/${id}`, {
         accepted: false,
       });
       const response = await axios.get(
-        `http://172.16.21.129:8080/api/challenges/accepted/${currentUser}`
+        `http://localhost:8080/api/challenges/accepted/${currentUser}`
       );
       this.setState({
         challenges: response.data,

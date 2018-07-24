@@ -10,8 +10,11 @@ import AddChallenge from './components/AddChallenge';
 import UserProfile from './components/UserProfile';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import LoginForm from './components/LoginForm';
 import { createStackNavigator } from 'react-navigation';
 import ImagePicker from './components/ImagePicker';
+import { Provider } from 'react-redux';
+import store, { getMe } from './app/store';
 
 const RootNavigator = createStackNavigator(
   {
@@ -64,6 +67,12 @@ const RootNavigator = createStackNavigator(
         title: `Login`,
       }),
     },
+    LoginForm: {
+      screen: LoginForm,
+      navigationOptions: ({ navigation }) => ({
+        title: `LoginForm`,
+      }),
+    },
     ImagePicker: {
       screen: ImagePicker,
       navigationOptions: ({ navigation }) => ({
@@ -78,6 +87,10 @@ const RootNavigator = createStackNavigator(
 
 export default class App extends React.Component {
   render() {
-    return <RootNavigator />;
+    return (
+      <Provider store={store}>
+        <RootNavigator />
+      </Provider>
+    );
   }
 }

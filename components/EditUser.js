@@ -41,7 +41,7 @@ class EditUser extends Component {
   async handleSubmit(submitEvent) {
     try {
       await axios.put(
-        `http://172.16.21.129:8080/api/users/${this.state.loggedInUserId}`,
+        `http://localhost:8080/api/users/${this.state.loggedInUserId}`,
         {
           firstName: this.state.firstName,
           lastName: this.state.lastName,
@@ -53,7 +53,7 @@ class EditUser extends Component {
       );
       // get user info
       const response = await axios.get(
-        `http://172.16.21.129:8080/api/users/${this.state.loggedInUserId}`
+        `http://localhost:8080/api/users/${this.state.loggedInUserId}`
       );
       this.setState({ user: response.data });
     } catch (error) {
@@ -63,7 +63,7 @@ class EditUser extends Component {
 
   async componentWillMount() {
     const response = await axios.get(
-      `http://172.16.21.129:8080/api/users/${this.state.loggedInUserId}`
+      `http://localhost:8080/api/users/${this.state.loggedInUserId}`
     );
 
     this.setState({
