@@ -15,6 +15,7 @@ import { createStackNavigator } from 'react-navigation';
 import ImagePicker from './components/ImagePicker';
 import { Provider } from 'react-redux';
 import store, { getMe } from './app/store';
+import axios from 'axios';
 
 const RootNavigator = createStackNavigator(
   {
@@ -86,6 +87,17 @@ const RootNavigator = createStackNavigator(
 );
 
 export default class App extends React.Component {
+  componentDidMount() {
+    try {
+      store.dispatch(getMe()).then(() => {
+        // this.props.history.push('/home');
+        console.log(this.state);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     return (
       <Provider store={store}>

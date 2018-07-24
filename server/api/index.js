@@ -6,7 +6,6 @@ const morgan = require('morgan');
 
 router.use('/users', require('./users'));
 router.use('/challenges', require('./challenges'));
-// authentication router
 router.use('/auth', require('./auth'));
 
 // Static middleware

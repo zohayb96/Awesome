@@ -149,7 +149,7 @@ class EditUser extends Component {
               <TextInput
                 name="email"
                 value={this.state.email}
-                onChangeText={challengeText => this.setState({ email })}
+                onChangeText={email => this.setState({ email })}
                 placeholder="Email"
                 style={styles.textStyle}
               />

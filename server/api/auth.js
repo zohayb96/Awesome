@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const { Challenge, Users } = require('../../database/');
-module.exports = router;
 
-// router.put('/login', (req, res, next) => {
+// router.get('/login', (req, res, next) => {
 //   Users.findOne({
 //     where: {
 //       email: req.body.email,
-//       password: req.body.password,
+//       // password: req.body.password,
 //     },
 //   })
 //     .then(user => {
@@ -22,26 +21,41 @@ module.exports = router;
 //     .catch(next);
 // });
 
-// auth routes go below!
-router.put('/login', async (req, res, next) => {
+router.get('/login', async (req, res, next) => {
   try {
-    const user = await Users.findOne({
+    const foundUser = await Users.findOne({
       where: {
-        email: req.body.email,
+        // email: req.body.email,
         password: req.body.password,
       },
     });
-    if (user) {
-      req.session.userId = user.id;
-      res.json(user);
-    } else {
-      const err = new Error('Incorrect email or password!');
-      res.send(err).status(401);
-    }
-  } catch (err) {
-    next(err);
+    res.json(foundUser);
+  } catch (error) {
+    console.log(error);
   }
 });
+
+// auth routes go below!
+// router.put('/login', async (req, res, next) => {
+//   try {
+//     console.log('req-body ', req.body);
+//     const user = await Users.findOne({
+//       where: {
+//         email: req.body.email,
+//         password: req.body.password,
+//       },
+//     });
+//     if (user) {
+//       req.session.userId = user.id;
+//       res.json(user);
+//     } else {
+//       const err = new Error('Incorrect email or password!');
+//       res.send(err).status(401);
+//     }
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // router.get('/login', async (req, res, next) => {
 //   try {
@@ -50,3 +64,5 @@ router.put('/login', async (req, res, next) => {
 //     res.sendStatus(404);
 //   }
 // });
+
+module.exports = router;

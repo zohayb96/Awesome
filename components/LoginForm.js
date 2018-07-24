@@ -33,22 +33,44 @@ class LoginForm extends Component {
       email: '',
       password: '',
     };
-    this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit(submitEvent) {
+  async handleSubmit(evt) {
     try {
-      const email = submitEvent.target.email.value;
-      const password = submitEvent.target.password.value;
-      dispatch(login(email, password));
-      console.log(this.state);
+      console.log('STATE: ', this.state);
+      const response = await axios.get(`http://localhost:8080/api/auth/login`, {
+        email: this.state.email,
+        password: this.state.password,
+      });
+      if (response) {
+        console.log('SUCCESS');
+      } else {
+        console.log('Incorrect Login');
+      }
+      // this.setState({ user: response.data });
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   }
 
+  // handleSubmit(evt) {
+  //   evt.preventDefault();
+  //   const email = this.state.email;
+  //   const password = this.state.password;
+  //   axios
+  //     .post('http://localhost:8080/api/auth/login', { email, password })
+  //     .then(res => {
+  //       const user = res.data;
+  //       this.setState({ user });
+  //       this.props.navigation.navigate('Page', { user: this.state.user });
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
   render() {
-    console.log(this.state);
+    console.log('state: ', this.state);
     return (
       <View style={styles.container}>
         <CardSection>
@@ -57,7 +79,7 @@ class LoginForm extends Component {
               <TextInput
                 name="email"
                 value={this.state.email}
-                // onChangeText={lastName => this.setState({ lastName })}
+                onChangeText={email => this.setState({ email })}
                 placeholder="Email Address"
                 style={styles.textStyle}
               />
@@ -66,7 +88,7 @@ class LoginForm extends Component {
               <TextInput
                 name="password"
                 value={this.state.password}
-                // onChangeText={challengeText => this.setState({ email })}
+                onChangeText={password => this.setState({ password })}
                 placeholder="Password"
                 style={styles.textStyle}
               />
@@ -84,11 +106,11 @@ class LoginForm extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit(evt) {
-      evt.preventDefault();
-      const email = evt.target.email.value;
-      const password = evt.target.password.value;
+      const email = this.state.email;
+      const password = this.state.password;
       dispatch(login({ email, password })).then(() => {
-        ownProps.history.push('/home');
+        // ownProps.history.push('/home');
+        console.log('Success');
       });
     },
   };
