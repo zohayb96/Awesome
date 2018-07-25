@@ -40,20 +40,19 @@ class EditUser extends Component {
 
   async handleSubmit(submitEvent) {
     try {
-      await axios.put(
-        `http://localhost:8080/api/users/${this.state.loggedInUserId}`,
-        {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          username: this.state.username,
-          email: this.state.email,
-          picture: this.state.picture,
-          password: this.state.password,
-        }
-      );
+      const { navigation } = this.props;
+      const user = navigation.getParam('user');
+      await axios.put(`http://localhost:8080/api/users/${user.id}`, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        username: this.state.username,
+        email: this.state.email,
+        picture: this.state.picture,
+        password: this.state.password,
+      });
       // get user info
       const response = await axios.get(
-        `http://localhost:8080/api/users/${this.state.loggedInUserId}`
+        `http://localhost:8080/api/users/${user.id}`
       );
       this.setState({ user: response.data });
     } catch (error) {
@@ -62,8 +61,10 @@ class EditUser extends Component {
   }
 
   async componentWillMount() {
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
     const response = await axios.get(
-      `http://localhost:8080/api/users/${this.state.loggedInUserId}`
+      `http://localhost:8080/api/users/${user.id}`
     );
 
     this.setState({

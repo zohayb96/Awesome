@@ -19,18 +19,21 @@ import EditUser from './EditUser';
 class AllUsers extends Component {
   state = {
     users: [],
-    loggedInUserId: 1,
+    user: {},
   };
 
   async componentWillMount() {
+    const { navigation } = this.props;
+    const itemId = navigation.getParam('user');
+    console.log('user: ', itemId);
     const response = await axios.get(
-      `http://localhost:8080/api/users/friends/${this.state.loggedInUserId}`
-      // 10.2.5.238
-      // 'https://rallycoding.herokuapp.com/api/music_albums'
+      `http://localhost:8080/api/users/friends/${itemId.id}`
     );
     this.setState({
       users: response.data,
+      user: itemId,
     });
+    console.log(this.state);
   }
 
   renderAlbums() {
@@ -41,7 +44,6 @@ class AllUsers extends Component {
 
   render() {
     console.log(this.state);
-
     return <ScrollView>{this.renderAlbums()}</ScrollView>;
   }
 }

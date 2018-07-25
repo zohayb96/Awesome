@@ -21,15 +21,20 @@ const { Challenge, Users } = require('../../database/');
 //     .catch(next);
 // });
 
-router.get('/login', async (req, res, next) => {
+router.put('/login', async (req, res, next) => {
   try {
     const foundUser = await Users.findOne({
       where: {
-        // email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
       },
     });
-    res.json(foundUser);
+    if (foundUser) {
+      // req.session.userId = foundUser.id;
+      res.json(foundUser);
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     console.log(error);
   }

@@ -39,20 +39,20 @@ class UserProfile extends Component {
   };
 
   async componentWillMount() {
-    const response = await axios.get('http://localhost:8080/api/users/1');
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
+    const response = await axios.get(
+      `http://localhost:8080/api/users/${user.id}`
+    );
     const challengeData = await axios.get(
-      `http://localhost:8080/api/challenges/own/${this.state.loggedInUserId}`
+      `http://localhost:8080/api/challenges/own/${user.id}`
     );
     const completedChallengeData = await axios.get(
-      `http://localhost:8080/api/challenges/completed/${
-        this.state.loggedInUserId
-      }`
+      `http://localhost:8080/api/challenges/completed/${user.id}`
     );
 
     const feedbackChallengeData = await axios.get(
-      `http://localhost:8080/api/challenges/feedback/${
-        this.state.loggedInUserId
-      }`
+      `http://localhost:8080/api/challenges/feedback/${user.id}`
     );
 
     this.setState({

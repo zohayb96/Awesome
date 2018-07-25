@@ -19,17 +19,16 @@ class Feed extends Component {
     super();
     this.state = {
       challenges: [],
-      loggedInUserId: 1,
     };
     this.deleteChallenge = this.deleteChallenge.bind(this);
     this.acceptChallenge = this.acceptChallenge.bind(this);
   }
 
   async componentWillMount() {
+    const { navigation } = this.props;
+    const itemId = navigation.getParam('user');
     const response = await axios.get(
-      `http://localhost:8080/api/challenges/issuedTo/${
-        this.state.loggedInUserId
-      }`
+      `http://localhost:8080/api/challenges/issuedTo/${itemId.id}`
     );
     this.setState({
       challenges: response.data,
@@ -41,9 +40,7 @@ class Feed extends Component {
     try {
       await axios.delete(`http://localhost:8080/api/challenges/${challengeId}`);
       const result = await axios.get(
-        `http://localhost:8080/api/challenges/issuedTo/${
-          this.state.loggedInUserId
-        }`
+        `http://localhost:8080/api/challenges/issuedTo/${itemId.id}`
       );
       this.setState({
         challenges: result.data,
@@ -59,9 +56,7 @@ class Feed extends Component {
         accepted: true,
       });
       const result = await axios.get(
-        `http://localhost:8080/api/challenges/issuedTo/${
-          this.state.loggedInUserId
-        }`
+        `http://localhost:8080/api/challenges/issuedTo/${itemId.id}`
       );
       this.setState({
         challenges: result.data,
@@ -86,6 +81,7 @@ class Feed extends Component {
 
   render() {
     console.log(this.state);
+    console.log('FEED PROPS: ', this.props);
 
     // return <ScrollView>{this.renderFeed()}</ScrollView>;
     return (

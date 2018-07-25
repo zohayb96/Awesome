@@ -23,8 +23,8 @@ const defaultState = {
   challengeText: '',
   challengePicture: null,
   users: [],
-  issuedFromId: 1,
-  issuedToId: 2,
+  issuedFromId: '',
+  issuedToId: '',
   AllUserIds: [],
 };
 
@@ -38,13 +38,15 @@ class InputForm extends Component {
       issuedFromId: '',
       issuedToId: '',
       AllUserIds: [],
-      loggedInUserId: 1,
+      // loggedInUserId: 1,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // POSTS TO ALL USERS Excpet Current LoggedInUser
   async handleSubmit(evt) {
+    console.log('ID:', this.props.user.id);
+    console.log('STATE: ', this.state);
+    console.log(this.state.users);
     try {
       // for (id in this.state.AllUserIds) { // send to all users
       let count = 0;
@@ -54,7 +56,7 @@ class InputForm extends Component {
         const res = await axios.post('http://localhost:8080/api/challenges', {
           challengeText: this.state.challengeText,
           challengePicture: this.state.challengePicture,
-          issuedFromId: this.state.loggedInUserId,
+          issuedFromId: this.props.user.id,
           issuedToId: idx,
         });
         count++;
@@ -101,34 +103,15 @@ class InputForm extends Component {
 
   async componentWillMount() {
     Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const response = await axios.get('http://192.168.1.11:8080/api/users');
+    const response = await axios.get('http://localhost:8080/api/users');
     this.setState({
       users: response.data,
     });
     this.state.users.map(user => {
       this.setState({
         AllUserIds: this.state.AllUserIds.concat(user.id),
-        // .filter(
-        //   user => user.id !== this.state.loggedInUserId
-        // ),
       });
     });
-
-    // Filters to create to all users except self
-    // this.setState({
-    //   AllUserIds: this.state.AllUserIds.filter(
-    //     userId => userId !== this.state.loggedInUserId
-    //   ),
-    // });
-
-    // const allOtherUsers = this.state.AllUserIds.filter(userId => {
-    //   userId !== this.state.loggedInUserId;
-    // });
-    // this.setState({ AllUserIds: allOtherUsers.concat() });
-    // const allOtherUsers = AllUserIds.filter(
-    //   userId => userId !== this.state.loggedInUserId
-    // );
-    // this.setState({AllUserIds = allOtherUsers.concat()})
   }
 
   render() {

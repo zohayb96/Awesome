@@ -15,10 +15,11 @@ class AddChallenge extends Component {
     challenges: [],
   };
   render() {
-    console.log(this.state);
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
     return (
       <View>
-        <InputForm />
+        <InputForm user={user} />
       </View>
     );
   }

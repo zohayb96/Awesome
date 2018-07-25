@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImagePickerIOS,
+  Alert,
 } from 'react-native';
 import store, { getMe } from './../app/store';
 import { Provider } from 'react-redux';
@@ -30,7 +31,7 @@ class LoginForm extends Component {
     super();
     this.state = {
       user: {},
-      email: '',
+      username: '',
       password: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,20 +39,15 @@ class LoginForm extends Component {
 
   async handleSubmit(evt) {
     try {
-      console.log('STATE: ', this.state);
-      const response = await axios.get(`http://localhost:8080/api/auth/login`, {
-        email: this.state.email,
+      const response = await axios.put(`http://localhost:8080/api/auth/login`, {
+        username: this.state.username,
         password: this.state.password,
       });
-      if (response) {
-        console.log('SUCCESS');
-      } else {
-        console.log('Incorrect Login');
-      }
-      // this.setState({ user: response.data });
-      console.log(response.data);
+      this.setState({ user: response.data });
+      this.props.navigation.navigate('AllUsers', { user: this.state.user });
     } catch (error) {
       console.log(error);
+      Alert.alert('Login Failed!');
     }
   }
 
@@ -77,11 +73,12 @@ class LoginForm extends Component {
           <View style={styles.container}>
             <CardSection>
               <TextInput
-                name="email"
-                value={this.state.email}
-                onChangeText={email => this.setState({ email })}
-                placeholder="Email Address"
+                name="username"
+                value={this.state.username}
+                onChangeText={username => this.setState({ username })}
+                placeholder="Username"
                 style={styles.textStyle}
+                autoCapitalize="none"
               />
             </CardSection>
             <CardSection>
@@ -91,10 +88,12 @@ class LoginForm extends Component {
                 onChangeText={password => this.setState({ password })}
                 placeholder="Password"
                 style={styles.textStyle}
+                secureTextEntry={true}
+                autoCapitalize="none"
               />
             </CardSection>
             <CardSection>
-              <Button onPress={this.handleSubmit}>Sign Up</Button>
+              <Button onPress={this.handleSubmit}>Log In</Button>
             </CardSection>
           </View>
         </CardSection>
@@ -106,9 +105,9 @@ class LoginForm extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit(evt) {
-      const email = this.state.email;
+      const user = this.state.username;
       const password = this.state.password;
-      dispatch(login({ email, password })).then(() => {
+      dispatch(login({ username, password })).then(() => {
         // ownProps.history.push('/home');
         console.log('Success');
       });

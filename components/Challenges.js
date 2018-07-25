@@ -21,7 +21,7 @@ class Challenges extends Component {
     super();
     this.state = {
       challenges: [],
-      loggedInUserId: 1,
+      // loggedInUserId: 1,
     };
     this.updateView = this.updateView.bind(this);
     this.rejectChallenge = this.rejectChallenge.bind(this);
@@ -47,10 +47,10 @@ class Challenges extends Component {
   }
 
   async componentWillMount() {
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
     const response = await axios.get(
-      `http://localhost:8080/api/challenges/accepted/${
-        this.state.loggedInUserId
-      }`
+      `http://localhost:8080/api/challenges/accepted/${user.id}`
     );
     this.setState({
       challenges: response.data,
